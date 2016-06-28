@@ -27,6 +27,7 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
         public TextView leadName;
         public TextView leadNumber;
         public TextView followUp;
+        public TextView leadType;
         public ImageView leadImage;
 
         public MyViewHolder(View itemView) {
@@ -35,6 +36,7 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
             leadName = (TextView) itemView.findViewById(R.id.lead_name);
             leadNumber = (TextView) itemView.findViewById(R.id.lead_number);
             followUp = (TextView) itemView.findViewById(R.id.follow_up);
+            leadType = (TextView) itemView.findViewById(R.id.lead_type);
         }
     }
 
@@ -57,6 +59,7 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
         holder.leadName.setText(lead.getName());
         holder.leadNumber.setText(lead.getNumber());
         holder.leadImage.setImageResource(R.drawable.account_circle);
+        holder.leadType.setText(lead.getType());
         holder.followUp.setText("1st Follow Up");
     }
 

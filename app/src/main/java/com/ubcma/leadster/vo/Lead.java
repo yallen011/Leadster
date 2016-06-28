@@ -6,14 +6,16 @@ package com.ubcma.leadster.vo;
 public class Lead {
     private String name;
     private String number;
+    private String type;
 
     public Lead (){
         super();
     }
 
-    public Lead(String name, String number) {
+    public Lead(String name, String number, String type) {
         this.name = name;
         this.number = number;
+        this.type = type;
     }
 
     public String getName() {
@@ -30,5 +32,13 @@ public class Lead {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

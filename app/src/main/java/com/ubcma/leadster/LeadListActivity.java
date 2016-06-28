@@ -75,28 +75,28 @@ public class LeadListActivity extends AppCompatActivity {
 
     private void prepareLeadData() {
 
-        Lead lead1 = new Lead("Adrian Knowles", "770-123-1234");
+        Lead lead1 = new Lead("Adrian Knowles", "770-123-1234", "Recruit");
         leadList.add(lead1);
 
-        Lead lead2 = new Lead("Tim Duncan", "770-123-1235");
+        Lead lead2 = new Lead("Tim Duncan", "770-123-1235", "Recruit");
         leadList.add(lead2);
 
-        Lead lead3 = new Lead("Labron James", "770-123-1236");
+        Lead lead3 = new Lead("Labron James", "770-123-1236", "Facial");
         leadList.add(lead3);
 
-        Lead lead4 = new Lead("Kate Middleton", "770-123-1237");
+        Lead lead4 = new Lead("Kate Middleton", "770-123-1237", "Facial");
         leadList.add(lead4);
 
-        Lead lead5 = new Lead("John Snow", "770-123-1238");
+        Lead lead5 = new Lead("John Snow", "770-123-1238", "Recruit");
         leadList.add(lead5);
 
-        Lead lead6 = new Lead("Peter Pan", "770-123-1239");
+        Lead lead6 = new Lead("Peter Pan", "770-123-1239", "Facial");
         leadList.add(lead6);
 
-        Lead lead7 = new Lead("Carl Moody", "770-123-1230");
+        Lead lead7 = new Lead("Carl Moody", "770-123-1230", "Facial");
         leadList.add(lead7);
 
-        Lead lead8 = new Lead("Jack Black", "770-123-1231");
+        Lead lead8 = new Lead("Jack Black", "770-123-1231", "Recruit");
         leadList.add(lead8);
 
         mLeadAdapter.notifyDataSetChanged();
