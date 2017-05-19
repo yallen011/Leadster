@@ -1,4 +1,4 @@
-package com.ubcma.leadster;
+package com.ubcma.leadster.activity;
 
 import android.graphics.Movie;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.LeadRecyclerViewAdapter;
 import com.ubcma.leadster.vo.Lead;
 

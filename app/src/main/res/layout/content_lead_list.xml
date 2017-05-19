@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ubcma.leadster.LeadListActivity"
+    tools:context="com.ubcma.leadster.activity.LeadListActivity"
     tools:showIn="@layout/activity_lead_list">
 
     <android.support.v7.widget.RecyclerView
