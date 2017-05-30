@@ -8,48 +8,219 @@
     tools:context="com.ubcma.leadster.activity.LeadDetailsActivity"
     tools:showIn="@layout/activity_lead_details">
 
+    <!--Main linear layout for all views contained in the nestedscroll view-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/activity_vertical_margin">
-        <TextView
-            android:layout_width="wrap_content"
+        android:paddingTop="36dp">
+
+        <!--card view for personal info section-->
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/personal_info_card_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="770-808-2234" />
-        <TextView
-            android:layout_width="wrap_content"
+
+            android:layout_marginBottom="4dp">
+
+            <!--Container RelativeLayout for info section-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/cld_phone_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:text="Phone"
+                        android:textSize="18dp"
+                        android:layout_alignParentLeft="true"/>
+                    <ImageView
+                        android:id="@+id/cld_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        android:src="@drawable/ic_call_black_24dp"
+                        android:layout_toRightOf="@+id/cld_phone_label" />
+                    <TextView
+                        android:id="@+id/cld_phone_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="770-808-2234"
+                        android:textSize="18dp"
+                        android:layout_alignParentRight="true"/>
+
+                <TextView
+                    android:id="@+id/cld_email_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Email"
+                    android:textSize="18dp"
+                    android:padding="8dp"
+                    android:layout_below="@id/cld_phone_label"/>
+                <ImageView
+                    android:id="@+id/cld_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:src="@drawable/ic_mail_outline_black_24dp"
+                    android:layout_toRightOf="@+id/cld_email_label"
+                    android:layout_below="@id/cld_phone_label"/>
+                <TextView
+                    android:id="@+id/cld_email_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test@gmail.com"
+                    android:textSize="18dp"
+                    android:padding="8dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/cld_phone_detail"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <!--Container for follow ups section -->
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/follow_up_card_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="test@gmail.com" />
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginBottom="4dp">
+
+            <!--container Relative layout for follow up section-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/cld_attempts_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Follow Up Attempts"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_alignParentLeft="true"/>
+                <Spinner
+                    android:id="@+id/cld_attempts_detail"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textAlignment="center"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"/>
+                <!--<TextView
+                    android:id="@+id/cld_attempts_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="3"
+                    android:textSize="18dp"
+                    android:textStyle=""
+                    android:layout_alignParentRight="true"/>-->
+
+                <TextView
+                    android:id="@+id/cld_follow_up_call_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Follow Up Call"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_below="@id/cld_attempts_label"/>
+                <ImageView
+                    android:id="@+id/cld_calendar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:layout_toRightOf="@+id/cld_follow_up_call_label"
+                    android:layout_below="@id/cld_attempts_label"/>
+
+                <!--TODO: add date picker on click -->
+                <TextView
+                    android:id="@+id/cld_follow_up_call_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Mon,Aug 2 4:30PM"
+                    android:textSize="18dp"
+                    android:layout_below="@id/cld_attempts_detail"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <!--Container for Appointments section -->
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/appointments_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            android:layout_marginBottom="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cld_interview_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Interview"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_alignParentLeft="true"/>
+                <ImageView
+                    android:id="@+id/cld_calendar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:layout_toRightOf="@+id/cld_interview_label" />
+                <TextView
+                    android:id="@+id/cld_interview_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Fri, Sept 2 3:00PM"
+                    android:textSize="18dp"
+                    android:layout_alignParentRight="true"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Party"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_below="@id/cld_interview_label"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Wed, Sept 2 4:00PM"
+                    android:textSize="18dp"
+                    android:layout_below="@id/cld_interview_detail"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Follow Up" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sept 2, 2017" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Follow Up Attempts" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3rd" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Appointment" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sept 2, 2017" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notes" />
+            android:padding="8dp"
+            android:text="Notes"
+            android:textSize="18dp"
+            android:textStyle="bold" />
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
@@ -62,22 +233,34 @@
             android:layout_height="50dp"
             card_view:cardCornerRadius="4dp">
 
-            <TextView
-                android:id="@+id/info_text"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="sometext"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:layout_marginBottom="@dimen/text_margin"
-                android:src="@drawable/ic_edit_black_24dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/text_margin"
-                android:src="@drawable/ic_delete_black_24dp"/>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/cld_pencil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    android:baselineAlignBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/cld_delete" />
+                <ImageView
+                    android:id="@+id/cld_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:src="@drawable/ic_delete_black_24dp"
+                    android:layout_alignParentRight="true"/>
+                <TextView
+                    android:id="@+id/info_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="sometext"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/cld_pencil"
+                    android:layout_marginTop="8dp"/>
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>

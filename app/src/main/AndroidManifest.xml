@@ -16,15 +16,15 @@
             android:name=".activity.LeadDetailsActivity"
             android:label="@string/title_activity_lead_details"
             android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name=".activity.TrackingActivity"
-            android:label="@string/title_activity_tracking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.TrackingActivity"
+            android:label="@string/title_activity_tracking">
 
         </activity>
     </application>
