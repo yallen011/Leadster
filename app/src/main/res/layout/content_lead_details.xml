@@ -34,7 +34,7 @@
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:textStyle="bold"
-                        android:text="Phone"
+                        android:text="@string/phone_label"
                         android:textSize="18dp"
                         android:layout_alignParentLeft="true"/>
                     <ImageView
@@ -51,6 +51,7 @@
                         android:padding="8dp"
                         android:text="770-808-2234"
                         android:textSize="18dp"
+                        android:background="?android:attr/selectableItemBackground"
                         android:layout_alignParentRight="true"/>
 
                 <TextView
@@ -58,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Email"
+                    android:text="@string/email_label"
                     android:textSize="18dp"
                     android:padding="8dp"
                     android:layout_below="@id/cld_phone_label"/>
@@ -74,9 +75,10 @@
                     android:id="@+id/cld_email_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="test@gmail.com"
                     android:textSize="18dp"
-                    android:padding="8dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/cld_phone_detail"/>
 
@@ -101,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Follow Up Attempts"
+                    android:text="@string/attemps_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:layout_alignParentLeft="true"/>
@@ -128,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Follow Up Call"
+                    android:text="@string/follow_up_call_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:layout_below="@id/cld_attempts_label"/>
@@ -149,6 +151,7 @@
                     android:padding="8dp"
                     android:text="Mon,Aug 2 4:30PM"
                     android:textSize="18dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:layout_below="@id/cld_attempts_detail"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
@@ -172,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Interview"
+                    android:text="@string/interview_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:layout_alignParentLeft="true"/>
@@ -190,23 +193,27 @@
                     android:padding="8dp"
                     android:text="Fri, Sept 2 3:00PM"
                     android:textSize="18dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:layout_alignParentRight="true"/>
 
 
                 <TextView
+                    android:id="@+id/cld_party_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="Party"
+                    android:text="@string/party_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:layout_below="@id/cld_interview_label"/>
                 <TextView
+                    android:id="@+id/cld_party_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
                     android:text="Wed, Sept 2 4:00PM"
                     android:textSize="18dp"
+                    android:background="?android:attr/selectableItemBackground"
                     android:layout_below="@id/cld_interview_detail"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
@@ -218,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Notes"
+            android:text="@string/notes_label"
             android:textSize="18dp"
             android:textStyle="bold" />
         <View
@@ -242,6 +249,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_edit_black_24dp"
+                    android:paddingRight="8dp"
                     android:baselineAlignBottom="true"
                     android:layout_alignParentTop="true"
                     android:layout_toStartOf="@+id/cld_delete" />
@@ -249,6 +257,7 @@
                     android:id="@+id/cld_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="8dp"
                     android:layout_marginBottom="@dimen/text_margin"
                     android:src="@drawable/ic_delete_black_24dp"
                     android:layout_alignParentRight="true"/>

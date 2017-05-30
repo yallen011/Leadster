@@ -8,6 +8,13 @@
     <string name="hint_sells_leads">Sells Leads</string>
     <string name="hint_interviews">Interviews</string>
     <string name="hint_sells_apts">Sells Appointments</string>
+    <string name="phone_label">Phone</string>
+    <string name="follow_up_call_label">Follow Up Call</string>
+    <string name="attemps_label">Follow Up Attempt</string>
+    <string name="email_label">Email</string>
+    <string name="interview_label">Interview</string>
+    <string name="party_label">Party</string>
+    <string name="notes_label">Notes</string>
     <string-array name="numbers_array">
         <item>1</item>
         <item>2</item>
