@@ -1,8 +1,12 @@
 package com.ubcma.leadster.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ubcma.leadster.R;
+import com.ubcma.leadster.adapter.LeadPagerAdapter;
+import com.ubcma.leadster.fragment.LeadListFragment;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,18 +29,23 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Toolbar code
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        //Go to create lead screen when floating action button is clicked
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), NewLeadActivity.class);
+                startActivity(intent);
             }
         });
 
+        //Layout for Navigation Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -42,6 +54,22 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //create the viewpager for navigation and add the fragments
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager1);
+        LeadPagerAdapter pagerAdapter = new LeadPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragment(new LeadListFragment(), getString(R.string.title_lead_list));
+
+        if (viewPager != null) {
+            viewPager.setAdapter(pagerAdapter);
+        }
+
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        if(tabLayout != null){
+            tabLayout.setupWithViewPager(viewPager);
+        }
     }
 
     @Override
@@ -83,7 +111,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
