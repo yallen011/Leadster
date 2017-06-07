@@ -19,7 +19,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.TrackingActivity"
-            android:label="@string/title_activity_tracking" />
+            android:label="@string/title_tracking" />
         <activity
             android:name=".activity.NewLeadActivity"
             android:label="@string/title_activity_new_lead">

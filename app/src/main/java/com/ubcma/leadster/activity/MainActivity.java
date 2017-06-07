@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.LeadPagerAdapter;
 import com.ubcma.leadster.fragment.LeadListFragment;
+import com.ubcma.leadster.fragment.ProgressFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager1);
         LeadPagerAdapter pagerAdapter = new LeadPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new LeadListFragment(), getString(R.string.title_lead_list));
+        pagerAdapter.addFragment(new ProgressFragment(), getString(R.string.title_progress));
 
         if (viewPager != null) {
             viewPager.setAdapter(pagerAdapter);
@@ -110,12 +112,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_tracking) {
             Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_goals) {
+//            Intent intent = new Intent(getApplicationContext(), GoalsActivity.class);
+//            startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
 
