@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--background color for progress bar for progress still remaining for completion-->
+    <item android:id="@+id/background">
+        <shape
+            android:innerRadiusRatio="3"
+            android:shape="ring"
+            android:thickness="15dp"
+            android:useLevel="false">
+            <solid android:color="@color/grey"/>
+        </shape>
+    </item>
+    <item android:id="@+id/progress">
+        <!-- start progress from top of circle -->
+        <rotate
+            android:fromDegrees="270"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="270" >
+            <shape
+                android:innerRadiusRatio="3"
+                android:shape="ring"
+                android:thickness="15dp"
+                android:useLevel="true">
+                <solid android:color="@color/colorAccent">
+
+                    <rotate
+                        android:fromDegrees="0"
+                        android:pivotX="50%"
+                        android:pivotY="50%"
+                        android:toDegrees="360" />
+                </solid>
+            </shape>
+        </rotate>
+    </item>
+
+</layer-list>
