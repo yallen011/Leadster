@@ -2,6 +2,7 @@ package com.ubcma.leadster.vo;
 
 /**
  * Created by Yvonne on 6/27/2016.
+ * Class that holds lead information
  */
 public class Lead {
     private String name;
