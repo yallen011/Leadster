@@ -57,15 +57,15 @@ public class GoalsAdapter extends ArrayAdapter<String> {
         return mLabels.size();
     }
 
-    @Override
-    public boolean isEmpty() {
-
-        super.isEmpty();
-        int count = getCount();
-
-//        if(getCount() == 0){
-//            return true;
-//        }
-        return false;
-    }
+//    @Override
+//    public boolean isEmpty() {
+//
+//        super.isEmpty();
+//        int count = getCount();
+//
+////        if(getCount() == 0){
+////            return true;
+////        }
+//        return false;
+//    }
 }
