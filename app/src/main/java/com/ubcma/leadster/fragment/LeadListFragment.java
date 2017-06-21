@@ -10,11 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ubcma.leadster.R;
+import com.ubcma.leadster.activity.LeadDetailsActivity;
 import com.ubcma.leadster.activity.NewLeadActivity;
+import com.ubcma.leadster.activity.TrackingActivity;
 import com.ubcma.leadster.adapter.LeadRecyclerViewAdapter;
 import com.ubcma.leadster.vo.Lead;
 
@@ -46,7 +49,6 @@ public class LeadListFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mLeadAdapter);
-
         prepareLeadData();
 
         return rootView;

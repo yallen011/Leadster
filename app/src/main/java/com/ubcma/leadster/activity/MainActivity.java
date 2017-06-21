@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_goals) {
-//            Intent intent = new Intent(getApplicationContext(), GoalsActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(), GoalsActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
 
