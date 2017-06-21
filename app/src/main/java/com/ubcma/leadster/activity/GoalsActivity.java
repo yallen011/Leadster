@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.GoalsAdapter;
@@ -43,6 +44,9 @@ public class GoalsActivity extends AppCompatActivity {
         ListView goalsListView = (ListView) findViewById(R.id.goals_list);
         GoalsAdapter adapter = new GoalsAdapter(this, getLabels());
         goalsListView.setAdapter(adapter);
+
+        //TODO: get empty list to display message
+        goalsListView.setEmptyView(findViewById(R.id.emptyElement));
     }
 
     public List<String> getLabels(){
