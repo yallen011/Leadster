@@ -1,0 +1,54 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ubcma.leadster.fragment.GoalsDetailsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
+
+        <EditText
+            android:id="@+id/goal_input"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+             />
+        <TextView
+            android:id="@+id/goal_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/goal_input"
+            android:text="sometext"
+            android:layout_alignBaseline="@id/goal_input"/>
+
+        <RadioGroup
+            android:id="@+id/goal_frequency_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/goal_day"
+            android:orientation="vertical"
+            android:layout_below="@id/goal_input">
+
+            <RadioButton
+                android:id="@+id/goal_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onLeadTypeClicked"
+                android:text="@string/day" />
+
+            <RadioButton
+                android:id="@+id/goal_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onLeadTypeClicked"
+                android:text="@string/week" />
+            <RadioButton
+                android:id="@+id/goal_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onLeadTypeClicked"
+                android:text="@string/month" />
+        </RadioGroup>
+    </RelativeLayout>
+</FrameLayout>
