@@ -14,7 +14,7 @@
             android:id="@+id/goal_input"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-             />
+            android:inputType="number" />
         <TextView
             android:id="@+id/goal_message"
             android:layout_width="wrap_content"
@@ -35,20 +35,17 @@
                 android:id="@+id/goal_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onLeadTypeClicked"
                 android:text="@string/day" />
 
             <RadioButton
                 android:id="@+id/goal_week"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onLeadTypeClicked"
                 android:text="@string/week" />
             <RadioButton
                 android:id="@+id/goal_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onLeadTypeClicked"
                 android:text="@string/month" />
         </RadioGroup>
     </RelativeLayout>

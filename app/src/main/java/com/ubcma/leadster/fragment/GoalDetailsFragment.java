@@ -6,14 +6,19 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ubcma.leadster.R;
+import com.ubcma.leadster.activity.MainActivity;
 
 /**
  * Dialog Fragment to display goals that can be tracked.
@@ -26,7 +31,15 @@ public class GoalDetailsFragment extends DialogFragment {
     private static final String GOAL_INTERVIEW_MESSAGE = "Interviews per:";
     private static final String GOAL_PARTY_MESSAGE = "Parties per:";
     private static final String TITLE = "Goal Details";
+    private static final String GOAL_FREQUENCY_DEFAULT = "Day";
     private Activity mContext;
+    private String mGoal;
+    private String mFrequency;
+    OnGoalSelectedListener mListener;
+
+    public interface OnGoalSelectedListener{
+        void onGoalSelected(String goal, String frequency);
+    }
 
     public GoalDetailsFragment() {
         // Required empty public constructor
@@ -48,7 +61,18 @@ public class GoalDetailsFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mContext = activity;
+
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the OnGoalSelectedListener so we can send events to the host
+            mListener = (OnGoalSelectedListener) activity;
+            mContext = activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnGoalSelectedListener");
+        }
+
     }
 
     @NonNull
@@ -58,7 +82,18 @@ public class GoalDetailsFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = mContext.getLayoutInflater();
 
-        View dialogView = inflater.inflate(R.layout.fragment_goals_details, null);
+        final View dialogView = inflater.inflate(R.layout.fragment_goals_details, null);
+        final EditText goalInput = (EditText) dialogView.findViewById(R.id.goal_input);
+        TextView messageTextView = (TextView) dialogView.findViewById(R.id.goal_message);
+        RadioGroup goalFrequency = (RadioGroup) dialogView.findViewById(R.id.goal_frequency_group);
+        goalFrequency.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                RadioButton frequencyBtn = (RadioButton) dialogView.findViewById(checkedId);
+                mFrequency = frequencyBtn.getText().toString();
+
+            }
+        });
 
         //build dialog
         builder.setView(dialogView)
@@ -67,14 +102,21 @@ public class GoalDetailsFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //TODO create a action on call back
+                        mGoal = goalInput.getText().toString();
+                        if (mFrequency == null){
+                            mFrequency = GOAL_FREQUENCY_DEFAULT;
+                        }
+                        mListener.onGoalSelected(mGoal, mFrequency);
+
+                        //dismiss the dialog
+                        dismiss();
                     }
                 });
 
         Bundle bundle = getArguments();
         String goalType = getArguments().getString("goalType");
         String message;
-        TextView messageTextView = (TextView) dialogView.findViewById(R.id.goal_message);
-        EditText goalInput = (EditText) dialogView.findViewById(R.id.goal_input);
+
 
 
         //decide wich message to display based on the goal type

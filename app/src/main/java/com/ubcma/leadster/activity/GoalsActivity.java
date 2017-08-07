@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.GoalsAdapter;
@@ -17,7 +18,7 @@ import com.ubcma.leadster.fragment.GoalDetailsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoalsActivity extends AppCompatActivity {
+public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragment.OnGoalSelectedListener {
 
     FloatingActionButton fab, fab_interview, fab_calls, fab_parties;
     Toolbar toolbar;
@@ -181,5 +182,11 @@ public class GoalsActivity extends AppCompatActivity {
         labels.add("Recuits per week");
 
         return labels;
+    }
+
+    @Override
+    public void onGoalSelected(String goal, String frequency) {
+        Toast.makeText(this, "Goal:" + goal + "Frequency" + frequency
+                , Toast.LENGTH_SHORT).show();
     }
 }
