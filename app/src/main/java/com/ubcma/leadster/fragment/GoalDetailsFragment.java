@@ -82,10 +82,13 @@ public class GoalDetailsFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = mContext.getLayoutInflater();
 
+        //inflate the view
         final View dialogView = inflater.inflate(R.layout.fragment_goals_details, null);
         final EditText goalInput = (EditText) dialogView.findViewById(R.id.goal_input);
         TextView messageTextView = (TextView) dialogView.findViewById(R.id.goal_message);
         RadioGroup goalFrequency = (RadioGroup) dialogView.findViewById(R.id.goal_frequency_group);
+
+        //set radio button checked behavior
         goalFrequency.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -101,11 +104,14 @@ public class GoalDetailsFragment extends DialogFragment {
                 .setPositiveButton(R.string.dialog_done, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO create a action on call back
+
+                        //send user input to the host activity
                         mGoal = goalInput.getText().toString();
+
                         if (mFrequency == null){
                             mFrequency = GOAL_FREQUENCY_DEFAULT;
                         }
+
                         mListener.onGoalSelected(mGoal, mFrequency);
 
                         //dismiss the dialog
@@ -113,10 +119,15 @@ public class GoalDetailsFragment extends DialogFragment {
                     }
                 });
 
-        Bundle bundle = getArguments();
         String goalType = getArguments().getString("goalType");
-        String message;
+        messageTextView.setText(getMessageByType(goalType));
 
+        //AlertDialog dialog = builder.create();
+        return builder.create();
+    }
+
+    private String getMessageByType(String goalType) {
+        String message;
 
 
         //decide wich message to display based on the goal type
@@ -134,10 +145,7 @@ public class GoalDetailsFragment extends DialogFragment {
                 message = GOAL_CALL_MESSAGE;
                 break;
         }
-        messageTextView.setText(message);
-
-        //AlertDialog dialog = builder.create();
-        return builder.create();
+        return message;
     }
 
 //    @Override

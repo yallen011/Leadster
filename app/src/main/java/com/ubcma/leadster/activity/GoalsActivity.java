@@ -179,14 +179,14 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         labels.add("Calls per week");
         labels.add("Interviews per week");
         labels.add("Appointments per week");
-        labels.add("Recuits per week");
+        labels.add("Team Members per week");
 
         return labels;
     }
 
     @Override
     public void onGoalSelected(String goal, String frequency) {
-        Toast.makeText(this, "Goal:" + goal + "Frequency" + frequency
+        Toast.makeText(this, "Goal:" + goal + "Frequency:" + frequency
                 , Toast.LENGTH_SHORT).show();
     }
 }
