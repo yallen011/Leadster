@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ubcma.leadster.R;
-import com.ubcma.leadster.vo.Progress;
+import com.ubcma.leadster.entity.Progress;
 
 import java.util.List;
 

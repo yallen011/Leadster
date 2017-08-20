@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.ProgressAdapter;
-import com.ubcma.leadster.vo.Progress;
+import com.ubcma.leadster.entity.Progress;
 
 import java.util.ArrayList;
 import java.util.List;

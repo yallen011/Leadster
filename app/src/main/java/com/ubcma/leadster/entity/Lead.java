@@ -1,10 +1,18 @@
-package com.ubcma.leadster.vo;
+package com.ubcma.leadster.entity;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by Yvonne on 6/27/2016.
  * Class that holds lead information
  */
+
+@Entity
 public class Lead {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String number;
     private String type;
@@ -17,6 +25,14 @@ public class Lead {
         this.name = name;
         this.number = number;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

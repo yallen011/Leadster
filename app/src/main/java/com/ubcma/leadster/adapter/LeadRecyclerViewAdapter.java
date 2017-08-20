@@ -8,15 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.activity.LeadDetailsActivity;
-import com.ubcma.leadster.vo.Lead;
+import com.ubcma.leadster.entity.Lead;
 
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Yvonne on 6/27/2016.

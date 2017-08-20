@@ -1,15 +1,24 @@
-package com.ubcma.leadster.vo;
+package com.ubcma.leadster.entity;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by Yvonne on 6/11/2017.
  * Class to keep track of user progress for goals they are tracking
  */
 
+@Entity
 public class Progress {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private int goal;
     private int progress;
+    @ColumnInfo(name = "goal_type")
     private int goalType;
+    @ColumnInfo(name = "goal_title")
     private String goalTitle;
     private String percent;
 
@@ -23,6 +32,14 @@ public class Progress {
         this.progress = progress;
         this.goalType = goalType;
         this.goalTitle = goalTitle;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getGoal() {

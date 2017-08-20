@@ -1,30 +1,21 @@
 package com.ubcma.leadster.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ubcma.leadster.R;
-import com.ubcma.leadster.activity.LeadDetailsActivity;
-import com.ubcma.leadster.activity.NewLeadActivity;
-import com.ubcma.leadster.activity.TrackingActivity;
 import com.ubcma.leadster.adapter.LeadRecyclerViewAdapter;
-import com.ubcma.leadster.vo.Lead;
+import com.ubcma.leadster.entity.Lead;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.v7.widget.AppCompatDrawableManager.get;
 
 /**
  * A simple {@link Fragment} subclass.
