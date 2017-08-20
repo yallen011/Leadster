@@ -30,15 +30,17 @@ public class GoalDetailsFragment extends DialogFragment {
     private static final String GOAL_CALL_MESSAGE = "Calls per:";
     private static final String GOAL_INTERVIEW_MESSAGE = "Interviews per:";
     private static final String GOAL_PARTY_MESSAGE = "Parties per:";
+    private static final String GOAL_RECRUIT_MESSAGE = "Recruits per:";
     private static final String TITLE = "Goal Details";
     private static final String GOAL_FREQUENCY_DEFAULT = "Day";
     private Activity mContext;
     private String mGoal;
     private String mFrequency;
+    private String mGoalType;
     OnGoalSelectedListener mListener;
 
     public interface OnGoalSelectedListener{
-        void onGoalSelected(String goal, String frequency);
+        void onGoalSelected(String goal, String frequency, String goalType);
     }
 
     public GoalDetailsFragment() {
@@ -112,15 +114,15 @@ public class GoalDetailsFragment extends DialogFragment {
                             mFrequency = GOAL_FREQUENCY_DEFAULT;
                         }
 
-                        mListener.onGoalSelected(mGoal, mFrequency);
+                        mListener.onGoalSelected(mGoal, mFrequency, mGoalType);
 
                         //dismiss the dialog
                         dismiss();
                     }
                 });
 
-        String goalType = getArguments().getString("goalType");
-        messageTextView.setText(getMessageByType(goalType));
+        mGoalType = getArguments().getString("goalType");
+        messageTextView.setText(getMessageByType(mGoalType));
 
         //AlertDialog dialog = builder.create();
         return builder.create();
@@ -140,6 +142,9 @@ public class GoalDetailsFragment extends DialogFragment {
                 break;
             case "i":
                 message = GOAL_INTERVIEW_MESSAGE;
+                break;
+            case "r":
+                message = GOAL_RECRUIT_MESSAGE;
                 break;
             default:
                 message = GOAL_CALL_MESSAGE;

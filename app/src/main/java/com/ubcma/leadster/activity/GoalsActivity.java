@@ -20,12 +20,17 @@ import java.util.List;
 
 public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragment.OnGoalSelectedListener {
 
+    private static final String INTERVIEW_FLAG = "i";
+    private static final String CALL_FLAG = "c";
+    private static final String PARTY_FLAG = "p";
+
     FloatingActionButton fab, fab_interview, fab_calls, fab_parties;
     Toolbar toolbar;
     ListView goalsListView;
     boolean isFABOpen=false;
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         goalsListView.setEmptyView(findViewById(R.id.emptyElement));
     }
 
+    // TODO: 8/20/2017 add recruit fab to fab menu 
     private void setFabMenuOnClickListeners() {
         //open and close fab menu
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +108,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         fab_parties.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goalDetailsFragment = GoalDetailsFragment.newInstance("p");
+                goalDetailsFragment = GoalDetailsFragment.newInstance(PARTY_FLAG);
                 //fragmentManager.beginTransaction().add(R.id.goal_details_dialog, goalDetailsFragment).commit();
                 goalDetailsFragment.show(fragmentManager, "GoalDetailsFragment");
 
@@ -112,7 +118,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         fab_interview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goalDetailsFragment = GoalDetailsFragment.newInstance("i");
+                goalDetailsFragment = GoalDetailsFragment.newInstance(INTERVIEW_FLAG);
                 //fragmentManager.beginTransaction().add(R.id.goal_details_dialog, goalDetailsFragment).commit();
                 goalDetailsFragment.show(fragmentManager, "GoalDetailsFragment");
 
@@ -122,7 +128,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         fab_calls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goalDetailsFragment = GoalDetailsFragment.newInstance("c");
+                goalDetailsFragment = GoalDetailsFragment.newInstance(CALL_FLAG);
                 //fragmentManager.beginTransaction().add(R.id.goal_details_dialog, goalDetailsFragment).commit();
                 goalDetailsFragment.show(fragmentManager, "GoalDetailsFragment");
 
@@ -185,8 +191,8 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     }
 
     @Override
-    public void onGoalSelected(String goal, String frequency) {
-        Toast.makeText(this, "Goal:" + goal + "Frequency:" + frequency
+    public void onGoalSelected(String goal, String frequency, String goalType) {
+        Toast.makeText(this, "Goal:" + goal + ", Frequency:" + frequency + ", Goal Type:" + goalType
                 , Toast.LENGTH_SHORT).show();
     }
 }
