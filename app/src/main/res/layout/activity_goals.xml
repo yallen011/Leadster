@@ -24,6 +24,15 @@
     <include layout="@layout/content_goals" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_recruits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/standard_23"
+        app:fabSize="mini"
+        android:src="@drawable/ic_face_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_parties"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +42,7 @@
         android:src="@drawable/ic_cake_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_interview"
+        android:id="@+id/fab_interviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

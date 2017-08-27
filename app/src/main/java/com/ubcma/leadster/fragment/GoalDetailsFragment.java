@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -114,8 +115,10 @@ public class GoalDetailsFragment extends DialogFragment {
                             mFrequency = GOAL_FREQUENCY_DEFAULT;
                         }
 
-                        mListener.onGoalSelected(mGoal, mFrequency, mGoalType);
-
+                        //if the no goal target was set or goal target is 0; do nothing
+                        if(!TextUtils.isEmpty(mGoal) || !mGoal.equals("0")){
+                            mListener.onGoalSelected(mGoal, mFrequency, mGoalType);
+                        }
                         //dismiss the dialog
                         dismiss();
                     }

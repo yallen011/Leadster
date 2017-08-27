@@ -2,6 +2,7 @@ package com.ubcma.leadster.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -22,11 +23,14 @@ public class Progress {
     private String goalTitle;
     private String percent;
 
+    @Ignore //Room should ignore this variable during persistence
     private static int PERCENT_MULTIPLIER = 100;
 
+    //Used for testing
     public Progress() {
     }
 
+    @Ignore
     public Progress(int goal, int progress, int goalType, String goalTitle) {
         this.goal = goal;
         this.progress = progress;

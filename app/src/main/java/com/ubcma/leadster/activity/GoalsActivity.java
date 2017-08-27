@@ -23,8 +23,11 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     private static final String INTERVIEW_FLAG = "i";
     private static final String CALL_FLAG = "c";
     private static final String PARTY_FLAG = "p";
+    private static final String RECRUIT_FLAG = "r";
+    private static final int FAB_ROTATE_ANGLE = 45;
+    private static final int FAB_ORIGIN_ANGLE = 0;
 
-    FloatingActionButton fab, fab_interview, fab_calls, fab_parties;
+    FloatingActionButton fab, fab_interviews, fab_calls, fab_parties, fab_recruits;
     Toolbar toolbar;
     ListView goalsListView;
     boolean isFABOpen=false;
@@ -115,7 +118,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
             }
         });
 
-        fab_interview.setOnClickListener(new View.OnClickListener() {
+        fab_interviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goalDetailsFragment = GoalDetailsFragment.newInstance(INTERVIEW_FLAG);
@@ -134,6 +137,16 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
             }
         });
+
+        fab_recruits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goalDetailsFragment = GoalDetailsFragment.newInstance(RECRUIT_FLAG);
+                //fragmentManager.beginTransaction().add(R.id.goal_details_dialog, goalDetailsFragment).commit();
+                goalDetailsFragment.show(fragmentManager, "GoalDetailsFragment");
+
+            }
+        });
     }
 
     private void initializeFragment() {
@@ -146,8 +159,9 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
      */
     private void initializeViews() {
 
+        fab_recruits = (FloatingActionButton) findViewById(R.id.fab_recruits);
         fab_calls = (FloatingActionButton) findViewById(R.id.fab_calls);
-        fab_interview = (FloatingActionButton) findViewById(R.id.fab_interview);
+        fab_interviews = (FloatingActionButton) findViewById(R.id.fab_interviews);
         fab_parties = (FloatingActionButton) findViewById(R.id.fab_parties);
         fab = (FloatingActionButton) findViewById(R.id.fab_goals);
 
@@ -161,10 +175,11 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     private void showFabMenu() {
         isFABOpen = true;
 
-        fab.animate().rotationBy(45);
+        fab.animate().rotationBy(FAB_ROTATE_ANGLE);
         fab_calls.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-        fab_interview.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
+        fab_interviews.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
         fab_parties.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
+        fab_recruits.animate().translationY(-getResources().getDimension(R.dimen.standard_190));
     }
 
     /**
@@ -172,10 +187,11 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
      */
     private void closeFabMenu() {
         isFABOpen = false;
-        fab.animate().rotationBy(-45);
-        fab_calls.animate().translationY(0);
-        fab_interview.animate().translationY(0);
-        fab_parties.animate().translationY(0);
+        fab.animate().rotationBy(-FAB_ROTATE_ANGLE);
+        fab_calls.animate().translationY(FAB_ORIGIN_ANGLE);
+        fab_interviews.animate().translationY(FAB_ORIGIN_ANGLE);
+        fab_parties.animate().translationY(FAB_ORIGIN_ANGLE);
+        fab_recruits.animate().translationY(FAB_ORIGIN_ANGLE);
     }
 
     //sample list data
@@ -186,6 +202,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         labels.add("Interviews per week");
         labels.add("Appointments per week");
         labels.add("Team Members per week");
+        labels.add("Recruits per week");
 
         return labels;
     }

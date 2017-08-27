@@ -1,6 +1,7 @@
 package com.ubcma.leadster.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -17,10 +18,12 @@ public class Lead {
     private String number;
     private String type;
 
+    //Used for testing
     public Lead (){
         super();
     }
 
+    @Ignore
     public Lead(String name, String number, String type) {
         this.name = name;
         this.number = number;

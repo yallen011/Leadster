@@ -2,7 +2,9 @@ package com.ubcma.leadster.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.text.TextUtils;
 
 /**
  * Created by Yvonne on 8/20/2017.
@@ -22,13 +24,14 @@ public class Goal {
     @ColumnInfo(name = "goal_target")
     private int goalTarget;
 
+    //Used for testing
     public Goal() {
     }
 
+    @Ignore
     public Goal(String goalType, String goalFrequency, int goalTarget) {
 
         this.goalType = goalType;
-        this.goalTitle = goalTitle;
         this.goalFrequency = goalFrequency;
         this.goalTarget = goalTarget;
     }
@@ -53,21 +56,13 @@ public class Goal {
         return goalTitle;
     }
 
-    // TODO: 8/20/2017 refactor string flags into an enum class or use constant instead
-    private void setGoalTitle(String goalType) {
+    public void setGoalTitle(String goalTitle) {
 
-        String goalTitle = "";
-        if(getGoalType() == "c"){
-            goalTitle = "Call";
-        }else if (getGoalType() == "i"){
-            goalTitle = "Interview";
-        }else if(getGoalType() == "p"){
-            goalTitle = "Party";
-        }else {
-            goalTitle = "Recruit";
+        if(TextUtils.isEmpty(goalTitle)){
+            this.goalTitle = getTitleByGoalType();
+        }else{
+            this.goalTitle = goalTitle; //Title coming from DB
         }
-
-        this.goalTitle = goalTitle;
     }
 
     public String getGoalFrequency() {
@@ -84,5 +79,21 @@ public class Goal {
 
     public void setGoalTarget(int goalTarget) {
         this.goalTarget = goalTarget;
+    }
+
+    // TODO: 8/20/2017 refactor string flags into an enum class or use constant instead
+    private String getTitleByGoalType() {
+
+        String goalTitleByType = "";
+        if(getGoalType() == "c"){
+            goalTitleByType = "Call";
+        }else if (getGoalType() == "i"){
+            goalTitleByType = "Interview";
+        }else if(getGoalType() == "p"){
+            goalTitleByType = "Party";
+        }else {
+            goalTitleByType = "Recruit";
+        }
+        return goalTitleByType;
     }
 }
