@@ -115,7 +115,7 @@ public class GoalDetailsFragment extends DialogFragment {
                             mFrequency = GOAL_FREQUENCY_DEFAULT;
                         }
 
-                        //if the no goal target was set or goal target is 0; do nothing
+                        //if no goal target was set or goal target is 0; do nothing
                         if(!TextUtils.isEmpty(mGoal) || !mGoal.equals("0")){
                             mListener.onGoalSelected(mGoal, mFrequency, mGoalType);
                         }

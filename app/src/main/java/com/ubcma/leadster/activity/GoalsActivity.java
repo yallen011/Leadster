@@ -1,24 +1,31 @@
 package com.ubcma.leadster.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.GoalsAdapter;
+import com.ubcma.leadster.dao.GoalDao;
+import com.ubcma.leadster.entity.Goal;
 import com.ubcma.leadster.fragment.GoalDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragment.OnGoalSelectedListener {
+
+    private static final String LOG_TAG = GoalsActivity.class.getSimpleName();
 
     private static final String INTERVIEW_FLAG = "i";
     private static final String CALL_FLAG = "c";
@@ -27,6 +34,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     private static final int FAB_ROTATE_ANGLE = 45;
     private static final int FAB_ORIGIN_ANGLE = 0;
 
+
     FloatingActionButton fab, fab_interviews, fab_calls, fab_parties, fab_recruits;
     Toolbar toolbar;
     ListView goalsListView;
@@ -34,12 +42,15 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
 
+    GoalDao goalDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
 
+        goalDao = LeadsterApp.get().getDB().goalDao();
         initializeViews();
         initializeFragment();
 
@@ -56,11 +67,8 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         createGoalsList();
     }
 
-    /**
-     * Handles up navigation from the goals screen.
-     * @param item
-     * @return
-     */
+
+    // Handles up navigation from the goals screen.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -94,7 +102,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         goalsListView.setEmptyView(findViewById(R.id.emptyElement));
     }
 
-    // TODO: 8/20/2017 add recruit fab to fab menu 
+
     private void setFabMenuOnClickListeners() {
         //open and close fab menu
         fab.setOnClickListener(new View.OnClickListener() {
@@ -208,8 +216,45 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     }
 
     @Override
-    public void onGoalSelected(String goal, String frequency, String goalType) {
-        Toast.makeText(this, "Goal:" + goal + ", Frequency:" + frequency + ", Goal Type:" + goalType
-                , Toast.LENGTH_SHORT).show();
+    public void onGoalSelected(String goalTarget, String frequency, String goalType) {
+
+        Goal goalObj = new Goal(goalType, frequency, new Integer(goalTarget));
+
+        Log.i(LOG_TAG, "Goal before db insert:ID - " + goalObj.getId()
+                + ", Target - " + goalObj.getGoalTarget()
+                + ", Frequency - " + goalObj.getGoalFrequency()
+                + ", Goal Type - " + goalObj.getGoalType()
+                + ", Goal Title - " + goalObj.getGoalTitle());
+
+        new AsyncTask<Goal, Void, Goal>(){
+
+            @Override
+            protected Goal doInBackground(Goal...params) {
+
+                Goal goalObj = params[0];
+                Goal savedGoal;
+                goalObj.setId(Integer.valueOf(goalDao.insertGoal(goalObj).toString()));
+
+                savedGoal = goalDao.getGoal(goalObj.getId());
+                //return the index of the persisted goal.
+                return  savedGoal;
+            }
+
+            @Override
+            protected void onPostExecute(Goal savedGoal) {
+
+//                Toast.makeText(this, "Goal after DB insert:" + savedGoal.getGoalTarget()
+//                                + ", Frequency:" + savedGoal.getGoalFrequency()
+//                                + ", Goal Type:" + savedGoal.getGoalType()
+//                        , Toast.LENGTH_SHORT).show();
+
+                Log.i(LOG_TAG, "Goal after db insert: ID - " + savedGoal.getId()
+                        + ", Target - " + savedGoal.getGoalTarget()
+                        + ", Frequency - " + savedGoal.getGoalFrequency()
+                        + ", Goal Type - " + savedGoal.getGoalType()
+                        + ", Goal Title - " + savedGoal.getGoalTitle());
+            }
+        }.execute(goalObj);
+
     }
 }

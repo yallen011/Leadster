@@ -53,6 +53,11 @@ public class Goal {
     }
 
     public String getGoalTitle() {
+
+        if(goalTitle == null && goalType != null){
+            goalTitle = getTitleByGoalType();
+        }
+
         return goalTitle;
     }
 

@@ -27,7 +27,7 @@ public interface GoalDao {
     void insertAllGoals(List<Goal> goals);
 
     @Insert
-    void insertGoal(Goal goal);
+    Long insertGoal(Goal goal);
 
     // TODO: 8/20/2017 find correct value for replace on conflict
     @Update(onConflict = 1)
