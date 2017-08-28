@@ -41,6 +41,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     boolean isFABOpen=false;
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
+    GoalsAdapter adapter;
 
     GoalDao goalDao;
 
@@ -95,7 +96,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
     private void createGoalsList() {
         //set array adapter for the goals list
-        GoalsAdapter adapter = new GoalsAdapter(this, getLabels());
+        adapter = new GoalsAdapter(this, new ArrayList<Goal>());
         goalsListView.setAdapter(adapter);
 
         //TODO: get empty list to display message
@@ -253,6 +254,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
                         + ", Frequency - " + savedGoal.getGoalFrequency()
                         + ", Goal Type - " + savedGoal.getGoalType()
                         + ", Goal Title - " + savedGoal.getGoalTitle());
+                adapter.notifyDataSetChanged();
             }
         }.execute(goalObj);
 
