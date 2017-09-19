@@ -6,16 +6,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
-import com.ubcma.leadster.adapter.GoalsAdapter;
+import com.ubcma.leadster.adapter.GoalsRecyclerViewAdapter;
 import com.ubcma.leadster.dao.GoalDao;
 import com.ubcma.leadster.entity.Goal;
 import com.ubcma.leadster.fragment.GoalDetailsFragment;
@@ -37,11 +36,11 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
     FloatingActionButton fab, fab_interviews, fab_calls, fab_parties, fab_recruits;
     Toolbar toolbar;
-    ListView goalsListView;
+    RecyclerView goalsListView;
     boolean isFABOpen=false;
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
-    GoalsAdapter adapter;
+    GoalsRecyclerViewAdapter adapter;
 
     GoalDao goalDao;
 
@@ -96,11 +95,8 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
     private void createGoalsList() {
         //set array adapter for the goals list
-        adapter = new GoalsAdapter(this, new ArrayList<Goal>());
+        adapter = new GoalsRecyclerViewAdapter(new ArrayList<Goal>());
         goalsListView.setAdapter(adapter);
-
-        //TODO: get empty list to display message
-        goalsListView.setEmptyView(findViewById(R.id.emptyElement));
     }
 
 
@@ -175,7 +171,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         fab = (FloatingActionButton) findViewById(R.id.fab_goals);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_goals);
-        goalsListView = (ListView) findViewById(R.id.goals_list);
+        goalsListView = (RecyclerView) findViewById(R.id.goals_list);
     }
 
     /**
