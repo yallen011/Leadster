@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
@@ -41,6 +42,7 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
     GoalsRecyclerViewAdapter adapter;
+    TextView noGoalsTxt;
 
     GoalDao goalDao;
 
@@ -94,9 +96,28 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     }
 
     private void createGoalsList() {
-        //set array adapter for the goals list
-        adapter = new GoalsRecyclerViewAdapter(new ArrayList<Goal>());
-        goalsListView.setAdapter(adapter);
+        //TODO: make a call to the database to get goals
+        List<Goal> goals = new ArrayList<Goal>();
+
+//        adapter = new GoalsRecyclerViewAdapter();
+//        goalsListView.setAdapter(adapter);
+
+        //check your goals list is empty or not
+        if(goals!=null && goals.size() > 0){
+
+            //make the goals list visible if there is data
+            goalsListView.setVisibility(View.VISIBLE);
+            noGoalsTxt.setVisibility(View.GONE);
+
+            //set array adapter for the goals list
+            adapter = new GoalsRecyclerViewAdapter(goals);
+            goalsListView.setAdapter(adapter);
+        }else{
+
+            //if there is no data display empty list text.
+            goalsListView.setVisibility(View.GONE);
+            noGoalsTxt.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -172,6 +193,8 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_goals);
         goalsListView = (RecyclerView) findViewById(R.id.goals_list);
+
+        noGoalsTxt = (TextView) findViewById(R.id.emptyElement);
     }
 
     /**
