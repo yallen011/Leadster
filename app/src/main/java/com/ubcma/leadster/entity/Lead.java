@@ -17,6 +17,7 @@ public class Lead {
     private String name;
     private String number;
     private String type;
+    private String email;
 
     //Used for testing
     public Lead (){
@@ -24,10 +25,11 @@ public class Lead {
     }
 
     @Ignore
-    public Lead(String name, String number, String type) {
+    public Lead(String name, String number, String type, String email) {
         this.name = name;
         this.number = number;
         this.type = type;
+        this.email = email;
     }
 
     public int getId() {
@@ -60,5 +62,13 @@ public class Lead {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
