@@ -96,28 +96,39 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     }
 
     private void createGoalsList() {
-        //TODO: make a call to the database to get goals
-        List<Goal> goals = new ArrayList<Goal>();
+
+        new AsyncTask<Void, Void, List<Goal>>(){
+
+            @Override
+            protected List<Goal> doInBackground(Void... params) {
+                List<Goal> returnedGoals = goalDao.getAllGoals();
+                return returnedGoals;
+            }
+
+            @Override
+            protected void onPostExecute(List<Goal> returnedGoals) {
+
+                //check your goals list is empty or not
+                if(returnedGoals.size() > 0){
+
+                    //make the goals list visible if there is data
+                    goalsListView.setVisibility(View.VISIBLE);
+                    noGoalsTxt.setVisibility(View.GONE);
+
+                    //set array adapter for the goals list
+                    adapter = new GoalsRecyclerViewAdapter(returnedGoals);
+                    goalsListView.setAdapter(adapter);
+                }else{
+
+                    //if there is no data display empty list text.
+                    goalsListView.setVisibility(View.GONE);
+                    noGoalsTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        }.execute();
 
 //        adapter = new GoalsRecyclerViewAdapter();
 //        goalsListView.setAdapter(adapter);
-
-        //check your goals list is empty or not
-        if(goals!=null && goals.size() > 0){
-
-            //make the goals list visible if there is data
-            goalsListView.setVisibility(View.VISIBLE);
-            noGoalsTxt.setVisibility(View.GONE);
-
-            //set array adapter for the goals list
-            adapter = new GoalsRecyclerViewAdapter(goals);
-            goalsListView.setAdapter(adapter);
-        }else{
-
-            //if there is no data display empty list text.
-            goalsListView.setVisibility(View.GONE);
-            noGoalsTxt.setVisibility(View.VISIBLE);
-        }
     }
 
 
@@ -273,7 +284,11 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
                         + ", Frequency - " + savedGoal.getGoalFrequency()
                         + ", Goal Type - " + savedGoal.getGoalType()
                         + ", Goal Title - " + savedGoal.getGoalTitle());
-                adapter.notifyDataSetChanged();
+
+                //check to see if the list has been created before notifying data has changed
+                if(adapter.getGoals() != null){
+                    adapter.notifyDataSetChanged();
+                }
             }
         }.execute(goalObj);
 

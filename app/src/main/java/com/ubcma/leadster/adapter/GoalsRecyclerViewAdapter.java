@@ -1,6 +1,5 @@
 package com.ubcma.leadster.adapter;
 
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,15 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
-import com.ubcma.leadster.dao.GoalDao;
 import com.ubcma.leadster.entity.Goal;
 
 import java.util.List;
-import java.util.logging.Logger;
-
-import static android.media.CamcorderProfile.get;
 
 /**
  * Created by Yvonne on 8/27/2017.
@@ -128,6 +122,10 @@ public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
             vh.emptyTextView.setText("No Goals Added");
         }
+    }
+
+    public List<Goal> getGoals(){
+        return mGoals;
     }
 
 //    private class GoalsAsyncTask extends AsyncTask<Void, Void, Void>{
