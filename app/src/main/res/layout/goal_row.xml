@@ -7,25 +7,22 @@
     tools:context="com.ubcma.leadster.activity.GoalsActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
     <TextView
         android:id="@+id/calls_goal_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="23sp"
-        android:text="Calls per week"
         android:layout_alignParentLeft="true"
-        android:layout_margin="@dimen/text_margin"/>
+        android:layout_margin="@dimen/text_margin"
+        tools:text="@string/calls_per_week"/>
+
     <TextView
         android:id="@+id/goal_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/text_margin"
-        android:text="4"
-        android:textSize="23sp"/>
-
-
-
+        android:textSize="23sp"
+        tools:text="4"/>
 
 </RelativeLayout>
