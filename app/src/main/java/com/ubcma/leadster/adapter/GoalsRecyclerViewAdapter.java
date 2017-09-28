@@ -1,6 +1,5 @@
 package com.ubcma.leadster.adapter;
 
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,26 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
-import com.ubcma.leadster.dao.GoalDao;
 import com.ubcma.leadster.entity.Goal;
 
 import java.util.List;
-import java.util.logging.Logger;
-
-import static android.media.CamcorderProfile.get;
 
 /**
  * Created by Yvonne on 8/27/2017.
  */
 
-public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<GoalsRecyclerViewAdapter.GoalsViewHolder> {
 
     private static final String TAG = GoalsRecyclerViewAdapter.class.getSimpleName();
 
-    List<Goal> mGoals;
-    private final int EMPTY=0, GOAL=1;
+    private List<Goal> mGoals;
 
     public GoalsRecyclerViewAdapter(List<Goal> goals) {
         Log.d(TAG, "adapter initialized");
@@ -35,63 +28,18 @@ public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.goal_row, parent, false);
+    public GoalsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         Log.d(TAG, "onCreateViewHolder: inside");
-        RecyclerView.ViewHolder viewHolder;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View emptyView = inflater.inflate(R.layout.empty_view, parent, false);
-
-        Log.d(TAG, "onCreateViewHolder: viewType" + viewType);
-
-        switch (viewType){
-            case EMPTY:
-                viewHolder = new EmptyViewHolder(emptyView);
-            break;
-            case GOAL:
-                View goalsView = inflater.inflate(R.layout.goal_row, parent, false);
-                viewHolder = new GoalsViewHolder(goalsView);
-                break;
-            default:
-                viewHolder = new EmptyViewHolder(emptyView);
-                break;
-        }
-
-        return viewHolder;
-
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.goal_row, parent, false);
+        return new GoalsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(GoalsViewHolder holder, int position) {
 
-        Log.d(TAG, "onBindViewHolder: inside");
-        EmptyViewHolder emptyViewHolder= (EmptyViewHolder) holder;
-
-        switch (holder.getItemViewType()){
-            case GOAL:
-                GoalsViewHolder goalsViewHolder = (GoalsViewHolder) holder;
-                goalsViewHolder.bind(goalsViewHolder, position);
-                break;
-            case EMPTY:
-                emptyViewHolder.bind(emptyViewHolder, position);
-                break;
-            default:
-                emptyViewHolder.bind(emptyViewHolder, position);
-                break;
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-
-        Log.d(TAG, "getItemViewType: inside");
-
-        if(mGoals.size()== EMPTY){
-            return EMPTY;
-        }else{
-            return GOAL;
-        }
+        Log.d(TAG, "onBindViewHolder: position " + position);
+        holder.bind(mGoals.get(position));
     }
 
     @Override
@@ -100,34 +48,29 @@ public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.
         return mGoals.size();
     }
 
-    public class GoalsViewHolder extends RecyclerView.ViewHolder {
+    class GoalsViewHolder extends RecyclerView.ViewHolder {
 
         TextView goalsLabel, goalCount;
-        public GoalsViewHolder(View itemView) {
+
+        GoalsViewHolder(View itemView) {
             super(itemView);
             goalsLabel = (TextView) itemView.findViewById(R.id.calls_goal_label);
             goalCount = (TextView) itemView.findViewById(R.id.goal_count);
         }
 
-        public void bind(GoalsViewHolder vh, int position){
-            Goal goal = mGoals.get(position);
-            vh.goalsLabel.setText(goal.getGoalTitle());
-            vh.goalCount.setText(goal.getGoalFrequency());
+        void bind(Goal goal){
+            Log.d(TAG, "bind: " + goal.toString());
+            goalsLabel.setText(goal.getGoalTitle());
+            goalCount.setText(String.valueOf(goal.getGoalTarget()));
         }
     }
 
-    public class EmptyViewHolder extends RecyclerView.ViewHolder{
+    public List<Goal> getGoals(){
+        return mGoals;
+    }
 
-        TextView emptyTextView;
-        public EmptyViewHolder(View itemView) {
-            super(itemView);
-            emptyTextView = (TextView) itemView.findViewById(R.id.emptyElement);
-        }
-
-        public void bind(EmptyViewHolder vh, int position){
-
-            vh.emptyTextView.setText("No Goals Added");
-        }
+    public void setGoals(List<Goal> goals){
+        mGoals = goals;
     }
 
 //    private class GoalsAsyncTask extends AsyncTask<Void, Void, Void>{

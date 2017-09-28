@@ -101,4 +101,16 @@ public class Goal {
         }
         return goalTitleByType;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Goal{");
+        sb.append("id=").append(id);
+        sb.append(", goalType='").append(goalType).append('\'');
+        sb.append(", goalTitle='").append(goalTitle).append('\'');
+        sb.append(", goalFrequency='").append(goalFrequency).append('\'');
+        sb.append(", goalTarget=").append(goalTarget);
+        sb.append('}');
+        return sb.toString();
+    }
 }

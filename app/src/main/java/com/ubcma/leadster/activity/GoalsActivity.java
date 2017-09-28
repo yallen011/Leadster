@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
@@ -19,7 +20,7 @@ import com.ubcma.leadster.dao.GoalDao;
 import com.ubcma.leadster.entity.Goal;
 import com.ubcma.leadster.fragment.GoalDetailsFragment;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragment.OnGoalSelectedListener {
@@ -37,12 +38,14 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     FloatingActionButton fab, fab_interviews, fab_calls, fab_parties, fab_recruits;
     Toolbar toolbar;
     RecyclerView goalsListView;
-    boolean isFABOpen=false;
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
     GoalsRecyclerViewAdapter adapter;
-
+    TextView noGoalsTxt;
     GoalDao goalDao;
+
+    private boolean showGoalsList = false;
+    private boolean isFABOpen=false;
 
 
     @Override
@@ -94,9 +97,44 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     }
 
     private void createGoalsList() {
-        //set array adapter for the goals list
-        adapter = new GoalsRecyclerViewAdapter(new ArrayList<Goal>());
-        goalsListView.setAdapter(adapter);
+
+        new AsyncTask<Void, Void, List<Goal>>(){
+
+            @Override
+            protected List<Goal> doInBackground(Void... params) {
+                List<Goal> returnedGoals = goalDao.getAllGoals();
+                return returnedGoals;
+            }
+
+            @Override
+            protected void onPostExecute(List<Goal> returnedGoals) {
+
+                //check your goals list is empty or not
+                if(returnedGoals.size() > 0){
+
+                    //make the goals list visible if there is data
+                    showGoalsList = true;
+
+                    //set array adapter for the goals list
+                    adapter = new GoalsRecyclerViewAdapter(returnedGoals);
+                    goalsListView.setAdapter(adapter);
+                }
+                toggleGoalsList();
+            }
+        }.execute();
+    }
+
+    private void toggleGoalsList() {
+
+        if(showGoalsList){
+            goalsListView.setVisibility(View.VISIBLE);
+            noGoalsTxt.setVisibility(View.GONE);
+        }else{
+
+            //if there is no data display empty list text.
+            goalsListView.setVisibility(View.GONE);
+            noGoalsTxt.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -172,6 +210,8 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_goals);
         goalsListView = (RecyclerView) findViewById(R.id.goals_list);
+
+        noGoalsTxt = (TextView) findViewById(R.id.emptyElement);
     }
 
     /**
@@ -197,19 +237,6 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         fab_interviews.animate().translationY(FAB_ORIGIN_ANGLE);
         fab_parties.animate().translationY(FAB_ORIGIN_ANGLE);
         fab_recruits.animate().translationY(FAB_ORIGIN_ANGLE);
-    }
-
-    //sample list data
-    public List<String> getLabels(){
-
-        List<String> labels = new ArrayList<>();
-        labels.add("Calls per week");
-        labels.add("Interviews per week");
-        labels.add("Appointments per week");
-        labels.add("Team Members per week");
-        labels.add("Recruits per week");
-
-        return labels;
     }
 
     @Override
@@ -245,14 +272,35 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 //                                + ", Goal Type:" + savedGoal.getGoalType()
 //                        , Toast.LENGTH_SHORT).show();
 
-                Log.i(LOG_TAG, "Goal after db insert: ID - " + savedGoal.getId()
+                Log.d(LOG_TAG, "Goal after db insert: ID - " + savedGoal.getId()
                         + ", Target - " + savedGoal.getGoalTarget()
                         + ", Frequency - " + savedGoal.getGoalFrequency()
                         + ", Goal Type - " + savedGoal.getGoalType()
                         + ", Goal Title - " + savedGoal.getGoalTitle());
+
+                //check to see if the list has been created before notifying data has changed
+                if(adapter.getGoals() == null){
+                    List<Goal> dataset = Arrays.asList(savedGoal);
+                    adapter.setGoals(dataset);
+                    //now that there is data, show the list of goals
+                    showGoalsList = true;
+                    toggleGoalsList();
+                }else{
+                    addGoalToList(savedGoal);
+                }
                 adapter.notifyDataSetChanged();
             }
         }.execute(goalObj);
+
+    }
+
+    private void addGoalToList(Goal savedGoal) {
+        adapter.getGoals().add(savedGoal);
+
+        if(adapter.getGoals().size() == 0){
+            showGoalsList = true;
+            toggleGoalsList();
+        }
 
     }
 }
