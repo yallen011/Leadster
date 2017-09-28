@@ -279,6 +279,9 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
                 }else{
                     List<Goal> dataset = Arrays.asList(savedGoal);
                     adapter.setGoals(dataset);
+                    //now that there is data, show the recyclerview
+                    goalsListView.setVisibility(View.VISIBLE);
+                    noGoalsTxt.setVisibility(View.GONE);
                 }
                 adapter.notifyDataSetChanged();
             }
