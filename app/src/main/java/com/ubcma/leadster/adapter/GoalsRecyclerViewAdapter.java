@@ -38,7 +38,7 @@ public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<GoalsRecycler
     @Override
     public void onBindViewHolder(GoalsViewHolder holder, int position) {
 
-        Log.d(TAG, "onBindViewHolder: position" + position);
+        Log.d(TAG, "onBindViewHolder: position " + position);
         holder.bind(mGoals.get(position));
     }
 
@@ -67,6 +67,10 @@ public class GoalsRecyclerViewAdapter extends RecyclerView.Adapter<GoalsRecycler
 
     public List<Goal> getGoals(){
         return mGoals;
+    }
+
+    public void setGoals(List<Goal> goals){
+        mGoals = goals;
     }
 
 //    private class GoalsAsyncTask extends AsyncTask<Void, Void, Void>{

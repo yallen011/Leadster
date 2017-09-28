@@ -21,6 +21,7 @@ import com.ubcma.leadster.entity.Goal;
 import com.ubcma.leadster.fragment.GoalDetailsFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragment.OnGoalSelectedListener {
@@ -233,19 +234,6 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
         fab_recruits.animate().translationY(FAB_ORIGIN_ANGLE);
     }
 
-    //sample list data
-    public List<String> getLabels(){
-
-        List<String> labels = new ArrayList<>();
-        labels.add("Calls per week");
-        labels.add("Interviews per week");
-        labels.add("Appointments per week");
-        labels.add("Team Members per week");
-        labels.add("Recruits per week");
-
-        return labels;
-    }
-
     @Override
     public void onGoalSelected(String goalTarget, String frequency, String goalType) {
 
@@ -287,8 +275,12 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 
                 //check to see if the list has been created before notifying data has changed
                 if(adapter.getGoals() != null){
-                    adapter.notifyDataSetChanged();
+                    adapter.getGoals().add(savedGoal);
+                }else{
+                    List<Goal> dataset = Arrays.asList(savedGoal);
+                    adapter.setGoals(dataset);
                 }
+                adapter.notifyDataSetChanged();
             }
         }.execute(goalObj);
 
