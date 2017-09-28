@@ -20,7 +20,6 @@ import com.ubcma.leadster.dao.GoalDao;
 import com.ubcma.leadster.entity.Goal;
 import com.ubcma.leadster.fragment.GoalDetailsFragment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,13 +38,14 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
     FloatingActionButton fab, fab_interviews, fab_calls, fab_parties, fab_recruits;
     Toolbar toolbar;
     RecyclerView goalsListView;
-    boolean isFABOpen=false;
     FragmentManager fragmentManager;
     GoalDetailsFragment goalDetailsFragment;
     GoalsRecyclerViewAdapter adapter;
     TextView noGoalsTxt;
-
     GoalDao goalDao;
+
+    private boolean showGoalsList = false;
+    private boolean isFABOpen=false;
 
 
     @Override
@@ -113,23 +113,28 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
                 if(returnedGoals.size() > 0){
 
                     //make the goals list visible if there is data
-                    goalsListView.setVisibility(View.VISIBLE);
-                    noGoalsTxt.setVisibility(View.GONE);
+                    showGoalsList = true;
 
                     //set array adapter for the goals list
                     adapter = new GoalsRecyclerViewAdapter(returnedGoals);
                     goalsListView.setAdapter(adapter);
-                }else{
-
-                    //if there is no data display empty list text.
-                    goalsListView.setVisibility(View.GONE);
-                    noGoalsTxt.setVisibility(View.VISIBLE);
                 }
+                toggleGoalsList();
             }
         }.execute();
+    }
 
-//        adapter = new GoalsRecyclerViewAdapter();
-//        goalsListView.setAdapter(adapter);
+    private void toggleGoalsList() {
+
+        if(showGoalsList){
+            goalsListView.setVisibility(View.VISIBLE);
+            noGoalsTxt.setVisibility(View.GONE);
+        }else{
+
+            //if there is no data display empty list text.
+            goalsListView.setVisibility(View.GONE);
+            noGoalsTxt.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -267,25 +272,35 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
 //                                + ", Goal Type:" + savedGoal.getGoalType()
 //                        , Toast.LENGTH_SHORT).show();
 
-                Log.i(LOG_TAG, "Goal after db insert: ID - " + savedGoal.getId()
+                Log.d(LOG_TAG, "Goal after db insert: ID - " + savedGoal.getId()
                         + ", Target - " + savedGoal.getGoalTarget()
                         + ", Frequency - " + savedGoal.getGoalFrequency()
                         + ", Goal Type - " + savedGoal.getGoalType()
                         + ", Goal Title - " + savedGoal.getGoalTitle());
 
                 //check to see if the list has been created before notifying data has changed
-                if(adapter.getGoals() != null){
-                    adapter.getGoals().add(savedGoal);
-                }else{
+                if(adapter.getGoals() == null){
                     List<Goal> dataset = Arrays.asList(savedGoal);
                     adapter.setGoals(dataset);
-                    //now that there is data, show the recyclerview
-                    goalsListView.setVisibility(View.VISIBLE);
-                    noGoalsTxt.setVisibility(View.GONE);
+                    //now that there is data, show the list of goals
+                    showGoalsList = true;
+                    toggleGoalsList();
+                }else{
+                    addGoalToList(savedGoal);
                 }
                 adapter.notifyDataSetChanged();
             }
         }.execute(goalObj);
+
+    }
+
+    private void addGoalToList(Goal savedGoal) {
+        adapter.getGoals().add(savedGoal);
+
+        if(adapter.getGoals().size() == 0){
+            showGoalsList = true;
+            toggleGoalsList();
+        }
 
     }
 }
