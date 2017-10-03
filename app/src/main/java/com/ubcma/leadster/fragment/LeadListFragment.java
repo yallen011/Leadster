@@ -1,6 +1,7 @@
 package com.ubcma.leadster.fragment;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,9 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.LeadRecyclerViewAdapter;
+import com.ubcma.leadster.dao.LeadDao;
 import com.ubcma.leadster.entity.Lead;
 
 import java.util.ArrayList;
@@ -22,24 +26,31 @@ import java.util.List;
  */
 public class LeadListFragment extends Fragment {
 
-    private List<Lead> leadList = new ArrayList<>();
+    //private List<Lead> leadList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private TextView noLeadsTxt;
     private LeadRecyclerViewAdapter mLeadAdapter;
+    private LeadDao leadDao;
+    private boolean showList = false;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        leadDao = LeadsterApp.get().getDB().leadDao();
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_lead_list, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.lead_recycler_view);
 
-        mLeadAdapter = new LeadRecyclerViewAdapter(leadList);
+        noLeadsTxt = (TextView) rootView.findViewById(R.id.lead_empty_element);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mLeadAdapter);
+
         prepareLeadData();
 
         return rootView;
@@ -47,30 +58,41 @@ public class LeadListFragment extends Fragment {
 
     private void prepareLeadData() {
 
-        Lead lead1 = new Lead("Adrian Knowles", "770-123-1234", "Recruit");
-        leadList.add(lead1);
 
-        Lead lead2 = new Lead("Tim Duncan", "770-123-1235", "Recruit");
-        leadList.add(lead2);
+        new AsyncTask<Void, Void, List<Lead>>() {
 
-        Lead lead3 = new Lead("Labron James", "770-123-1236", "Facial");
-        leadList.add(lead3);
+            @Override
+            protected List<Lead> doInBackground(Void... params) {
 
-        Lead lead4 = new Lead("Kate Middleton", "770-123-1237", "Facial");
-        leadList.add(lead4);
+                List<Lead> leads = leadDao.getAllLeads();
+                return leads;
+            }
 
-        Lead lead5 = new Lead("John Snow", "770-123-1238", "Recruit");
-        leadList.add(lead5);
+            @Override
+            protected void onPostExecute(List<Lead> leads) {
 
-        Lead lead6 = new Lead("Peter Pan", "770-123-1239", "Facial");
-        leadList.add(lead6);
+                if(leads.size() > 0){
+                   showList = true;
+                    mLeadAdapter = new LeadRecyclerViewAdapter(leads);
+                    recyclerView.setAdapter(mLeadAdapter);
+                }
+                toggleLeadsList();
+            }
+        }.execute();
+    }
 
-        Lead lead7 = new Lead("Carl Moody", "770-123-1230", "Facial");
-        leadList.add(lead7);
+    private void toggleLeadsList(){
 
-        Lead lead8 = new Lead("Jack Black", "770-123-1231", "Recruit");
-        leadList.add(lead8);
+        if(showList){
+            recyclerView.setVisibility(View.VISIBLE);
+            noLeadsTxt.setVisibility(View.GONE);
+        }else {
+            noLeadsTxt.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+    }
 
+    public void updateAdapter(){
         mLeadAdapter.notifyDataSetChanged();
     }
 

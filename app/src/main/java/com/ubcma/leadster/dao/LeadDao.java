@@ -24,16 +24,16 @@ public interface LeadDao {
     Lead getLead(int id);
 
     @Insert
-    void insertAllGoals(List<Lead> leads);
+    void insertAllLeads(List<Lead> leads);
 
     @Insert
-    Long insertGoal(Lead goal);
+    Long insertLead(Lead goal);
 
     // TODO: 8/20/2017 find correct value for replace on conflict
     @Update(onConflict = 1)
-    void updateGoal(Lead lead);
+    void updateLead(Lead lead);
 
     @Delete
-    void deleteGoal(Lead lead);
+    void deleteLead(Lead lead);
 
 }

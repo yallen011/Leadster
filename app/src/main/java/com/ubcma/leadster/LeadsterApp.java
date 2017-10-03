@@ -26,6 +26,7 @@ public class LeadsterApp extends Application {
 
         // create database
         db = Room.databaseBuilder(getApplicationContext(), LeadsterDB.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()//recreate all of the tables
                 .build();
 
         INSTANCE = this;

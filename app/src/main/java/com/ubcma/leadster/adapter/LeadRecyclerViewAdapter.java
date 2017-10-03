@@ -18,11 +18,11 @@ import java.util.List;
 /**
  * Created by Yvonne on 6/27/2016.
  */
-public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerViewAdapter.MyViewHolder> {
+public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerViewAdapter.LeadViewHolder> {
 
     public List<Lead> mLeads;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class LeadViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView leadName;
         public TextView leadNumber;
         public TextView followUp;
@@ -31,7 +31,7 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
 
         public Context context;
 
-        public MyViewHolder(Context context, View itemView) {
+        public LeadViewHolder(Context context, View itemView) {
             super(itemView);
             leadImage = (ImageView) itemView.findViewById(R.id.lead_image);
             leadName = (TextView) itemView.findViewById(R.id.lead_name);
@@ -58,17 +58,17 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LeadViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
         View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.lead_list_row, parent, false);
 
-        return new MyViewHolder(context, itemView);
+        return new LeadViewHolder(context, itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(LeadViewHolder holder, int position) {
 
         Lead lead = mLeads.get(position);
         holder.leadName.setText(lead.getName());
@@ -81,6 +81,10 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
     @Override
     public int getItemCount() {
         return mLeads.size();
+    }
+
+    public List<Lead> getLeadsList(){
+        return mLeads;
     }
 
 

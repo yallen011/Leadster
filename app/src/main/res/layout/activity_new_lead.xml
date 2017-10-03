@@ -104,7 +104,7 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
     android:layout_below="@id/input_layout_comments"/>
 
 <RadioGroup
-    android:id="@+id/radioGroup"
+    android:id="@+id/lead_type_rg"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:checkedButton="@+id/team_member_rb"
@@ -130,7 +130,7 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_below="@id/radioGroup"
+    android:layout_below="@id/lead_type_rg"
     android:layout_alignParentBottom="true"
     android:gravity="bottom"
     style="?android:attr/buttonBarStyle">
