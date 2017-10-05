@@ -1,9 +1,11 @@
 package com.ubcma.leadster.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import static android.R.attr.fragment;
 
 public class NewLeadActivity extends AppCompatActivity {
 
+    private static final String TAG = NewLeadActivity.class.getSimpleName();
     LeadDao leadDao;
     Lead lead;
     String mLeadType;
@@ -70,7 +73,24 @@ public class NewLeadActivity extends AppCompatActivity {
                 lead.setType(mLeadType);
                 lead.setStatus(Lead.Status.NEW);
 
-                leadDao.insertLead(lead);
+                new AsyncTask<Lead, Void, Lead>(){
+
+                    @Override
+                    protected Lead doInBackground(Lead... params) {
+                        Lead lead = params[0];
+                        int id = leadDao.insertLead(lead).intValue();
+                        lead.setId(id);
+                        return lead;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Lead savedLead) {
+                        Log.d(TAG, "Lead added: id - " + savedLead.getName()
+                                + ", name: " + savedLead.getName());
+
+                    }
+                }.execute(lead);
+
 
 
                 /*TODO: pass data back to the main activity that hosts the lead list fragment.

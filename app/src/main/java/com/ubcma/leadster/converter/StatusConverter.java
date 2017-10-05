@@ -1,6 +1,7 @@
 package com.ubcma.leadster.converter;
 
 import android.arch.persistence.room.TypeConverter;
+import android.util.Log;
 
 import com.ubcma.leadster.entity.Lead;
 import static com.ubcma.leadster.entity.Lead.Status.CALL_BACK;
@@ -15,24 +16,13 @@ import static com.ubcma.leadster.entity.Lead.Status.WRONG_NUMBER;
  */
 
 public class StatusConverter {
+    
+    private static final String TAG = StatusConverter.class.getSimpleName();
 
     @TypeConverter
     public static Lead.Status stringToStatus(String status) {
-        if (status == NEW.getStatus()) {
-            return NEW;
-        } else if (status == NOT_INTERESTED.getStatus()) {
-            return NOT_INTERESTED;
-        } else if (status == INTERESTED.getStatus()) {
-            return INTERESTED;
-        } else if(status == WRONG_NUMBER.getStatus()){
-            return WRONG_NUMBER;
-        } else if(status ==CALL_BACK.getStatus()){
-            return CALL_BACK;
-        } else if(status == NO_ANSWER.getStatus()){
-            return NO_ANSWER;
-        } else {
-            throw new IllegalArgumentException("Could not recognize status");
-        }
+
+        return Lead.Status.statusFromString(status);
     }
 
     @TypeConverter

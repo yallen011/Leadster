@@ -7,13 +7,15 @@ import android.arch.persistence.room.TypeConverters;
 
 import com.ubcma.leadster.converter.StatusConverter;
 
+import java.io.Serializable;
+
 /**
  * Created by Yvonne on 6/27/2016.
  * Class that holds lead information
  */
 
 @Entity
-public class Lead {
+public class Lead{
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -101,7 +103,16 @@ public class Lead {
         }
 
         public String getStatus() {
-            return status;
+            return this.status;
+        }
+
+        public static Lead.Status statusFromString(String stringStatus) {
+            for (Lead.Status enumStatus : Lead.Status.values()) {
+                if (enumStatus.status.equals(stringStatus)) {
+                    return enumStatus;
+                }
+            }
+            return null;
         }
     }
 }

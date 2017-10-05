@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +27,21 @@ import java.util.List;
  */
 public class LeadListFragment extends Fragment {
 
+    private static final String TAG = LeadListFragment.class.getSimpleName();
     //private List<Lead> leadList = new ArrayList<>();
     private RecyclerView recyclerView;
     private TextView noLeadsTxt;
     private LeadRecyclerViewAdapter mLeadAdapter;
     private LeadDao leadDao;
     private boolean showList = false;
+    
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Log.d(TAG, "onCreateView: entered onCreateView");
         leadDao = LeadsterApp.get().getDB().leadDao();
 
         // Inflate the layout for this fragment
@@ -96,4 +100,11 @@ public class LeadListFragment extends Fragment {
         mLeadAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d(TAG, "onResume: entered onResume");
+        
+    }
 }
