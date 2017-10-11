@@ -23,13 +23,17 @@ public interface LeadDao {
     @Query("SELECT * FROM lead WHERE :id = id")
     Lead getLead(int id);
 
+    //TODO: 10/10/2017: uncomment the conflict strategy
+    //@Insert(onConflict = OnConflictStrategy.REPLACE)
     @Insert
     void insertAllLeads(List<Lead> leads);
 
+    //// TODO: 10/10/2017 : change the variable to say lead and not goal.
     @Insert
     Long insertLead(Lead goal);
 
-    // TODO: 8/20/2017 find correct value for replace on conflict
+    // TODO: 10/10/2017: uncomment the conflict strategy
+    //@Update(onConflict = OnConflictStrategy.REPLACE)
     @Update(onConflict = 1)
     void updateLead(Lead lead);
 
