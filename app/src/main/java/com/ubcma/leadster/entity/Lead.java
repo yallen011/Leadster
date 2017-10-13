@@ -25,6 +25,7 @@ public class Lead{
     private String email;
     @TypeConverters(StatusConverter.class)
     private Status status;
+    private String followUpAttempt;
 
     //Used for testing
     public Lead (){
@@ -32,12 +33,13 @@ public class Lead{
     }
 
     @Ignore
-    public Lead(String name, String number, String type, String email, Status status) {
+    public Lead(String name, String number, String type, String email, Status status, String followUpAttempt) {
         this.name = name;
         this.number = number;
         this.type = type;
         this.email = email;
         this.status = status;
+        this.followUpAttempt = followUpAttempt;
     }
 
     public int getId() {
@@ -86,6 +88,14 @@ public class Lead{
 
     public Status getStatus() {
         return status;
+    }
+
+    public String getFollowUpAttempt() {
+        return followUpAttempt;
+    }
+
+    public void setFollowUpAttempt(String followUpAttempt) {
+        this.followUpAttempt = followUpAttempt;
     }
 
     public enum Status {

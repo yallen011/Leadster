@@ -72,6 +72,7 @@ public class NewLeadActivity extends AppCompatActivity {
                 lead.setNumber(leadNumber.getText().toString());
                 lead.setType(mLeadType);
                 lead.setStatus(Lead.Status.NEW);
+                lead.setFollowUpAttempt("1");
 
                 new AsyncTask<Lead, Void, Lead>(){
 

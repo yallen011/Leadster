@@ -1,17 +1,18 @@
 package com.ubcma.leadster.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
+import com.ubcma.leadster.dao.LeadDao;
+import com.ubcma.leadster.entity.Lead;
 import com.ubcma.leadster.fragment.DatePickerFragment;
 import com.ubcma.leadster.fragment.TimePickerFragment;
 
@@ -23,14 +24,48 @@ import static android.widget.Toast.makeText;
 
 public class LeadDetailsActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickerListener, TimePickerFragment.OnTimePickerListener {
 
-    TextView follow_up_call_date;
-    TextView interview_date;
-    TextView party_date;
+    LeadDao leadDao;
+    Lead lead;
+
+    TextView followUpCallDate, interviewDate, partyDate, leadNumber, leadEmail, followUpAttempt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead_details);
+
+        leadDao = LeadsterApp.get().getDB().leadDao();
+        lead = new Lead();
+
+        initializeLeadDetails();
+        initializeViews();
+
+    }
+
+    private void initializeLeadDetails() {
+
+        new AsyncTask<Integer, Void, Lead>() {
+
+            @Override
+            protected Lead doInBackground(Integer... params) {
+
+                Lead lead = leadDao.getLead(params[0]);
+                return lead;
+            }
+
+            @Override
+            protected void onPostExecute(Lead lead) {
+                leadNumber.setText(lead.getNumber());
+                leadEmail.setText(lead.getEmail());
+                // TODO: 10/10/2017 add follow up attempts to lead
+                followUpAttempt.setText(lead.getFollowUpAttempt());
+
+            }
+        }.execute(new Integer(1));
+    }
+
+    private void initializeViews() {
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,38 +78,42 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
             }
         });
 
-        Spinner spinner = (Spinner) findViewById(R.id.cld_attempts_detail);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.numbers_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+//        Spinner spinner = (Spinner) findViewById(R.id.cld_attempts_detail);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.numbers_array, android.R.layout.simple_spinner_item);
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Apply the adapter to the spinner
+//        spinner.setAdapter(adapter);
 
-        follow_up_call_date = (TextView) findViewById(R.id.cld_follow_up_call_detail);
+        followUpCallDate = (TextView) findViewById(R.id.cld_follow_up_call_detail);
 
-        follow_up_call_date.setOnClickListener(new View.OnClickListener() {
+        followUpCallDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickDate(v);
             }
         });
 
-        interview_date = (TextView) findViewById(R.id.cld_interview_detail);
-        interview_date.setOnClickListener(new View.OnClickListener() {
+        interviewDate = (TextView) findViewById(R.id.cld_interview_detail);
+        interviewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickDate(v);
             }
         });
 
-        party_date = (TextView) findViewById(R.id.cld_party_detail);
-        party_date.setOnClickListener(new View.OnClickListener() {
+        partyDate = (TextView) findViewById(R.id.cld_party_detail);
+        partyDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickDate(v);
             }
         });
+
+        leadNumber = (TextView) findViewById(R.id.cld_phone_detail);
+        leadEmail = (TextView) findViewById(R.id.cld_email_detail);
+        followUpAttempt = (TextView) findViewById(R.id.cld_attempts_detail);
     }
 
     /**change date to what was selected by the user
@@ -88,7 +127,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
         int id = clickedView.getId();
 
         //open the time dialog for Interview and Party
-        if((id == interview_date.getId()) || (id == party_date.getId())){
+        if((id == interviewDate.getId()) || (id == partyDate.getId())){
 
             TimePickerFragment timePickerFragment = new TimePickerFragment();
             timePickerFragment.setClickedView(clickedView);

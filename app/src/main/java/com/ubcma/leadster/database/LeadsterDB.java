@@ -12,7 +12,7 @@ import com.ubcma.leadster.entity.Lead;
  * Created by Yvonne on 8/20/2017.
  */
 
-@Database(version = 2, entities = {Goal.class, Lead.class})
+@Database(version = 3, entities = {Goal.class, Lead.class})
 public abstract class LeadsterDB extends RoomDatabase {
 
     abstract public GoalDao goalDao();
