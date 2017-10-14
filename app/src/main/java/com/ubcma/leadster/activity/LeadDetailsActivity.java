@@ -6,13 +6,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.dao.LeadDao;
+import com.ubcma.leadster.entity.Appointment;
 import com.ubcma.leadster.entity.Lead;
+import com.ubcma.leadster.entity.LeadWithAppt;
 import com.ubcma.leadster.fragment.DatePickerFragment;
 import com.ubcma.leadster.fragment.TimePickerFragment;
 
@@ -24,6 +27,7 @@ import static android.widget.Toast.makeText;
 
 public class LeadDetailsActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickerListener, TimePickerFragment.OnTimePickerListener {
 
+    private final String TAG = LeadDetailsActivity.class.getSimpleName();
     LeadDao leadDao;
     Lead lead;
 
@@ -39,7 +43,29 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
 
         initializeLeadDetails();
         initializeViews();
+        leadWithAppointment();//used for testing currently
+    }
 
+    private void leadWithAppointment(){
+        new AsyncTask<Integer, Void, LeadWithAppt>() {
+
+            @Override
+            protected LeadWithAppt doInBackground(Integer... params) {
+
+                LeadWithAppt lead = leadDao.loadApptByLeadId(params[0]);
+                return lead;
+            }
+
+            @Override
+            protected void onPostExecute(LeadWithAppt lead) {
+                Log.d(TAG, "onPostExecute: Lead - " + lead.lead.getName());
+                if(lead.appointments ==null){
+                    Log.d(TAG, "onPostExecute: Appointments - leads have no appts");
+                }else{
+                    Log.d(TAG, "onPostExecute: Appointments - " + lead.appointments.size());
+                }
+            }
+        }.execute(new Integer(1));
     }
 
     private void initializeLeadDetails() {
@@ -123,6 +149,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
     @Override
     public void onDone(View clickedView, Date date) {
         String formattedDate = formatDate(date);
+        saveAppointment(formattedDate);
 
         int id = clickedView.getId();
 
@@ -163,8 +190,35 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
     @Override
     public void onDone(View clickedView, String date, String time) {
 
+
         String formattedDateTime = date + " "+ time;
+        saveAppointment(formattedDateTime);
         setClickedText(clickedView, formattedDateTime);
+    }
+
+    private void saveAppointment(String formattedDateTime) {
+
+        new AsyncTask<String, Void, Appointment>() {
+
+            @Override
+            protected Appointment doInBackground(String... params) {
+
+                Appointment appt = new Appointment();
+                appt.setDate(params[0]);
+                appt.setLeadId(1);
+                Log.d(TAG, "doInBackground: inside method");
+
+                return appt;
+            }
+
+            @Override
+            protected void onPostExecute(Appointment appt) {
+
+                Log.d(TAG, "onDone: Saved Appt: Date" + appt.getDate());
+                Log.d(TAG, "onDone: Saved Appt: Lead id" + appt.getLeadId());
+            }
+        }.execute(formattedDateTime);
+
     }
 
     /**

@@ -3,10 +3,12 @@ package com.ubcma.leadster.dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.ubcma.leadster.entity.Lead;
+import com.ubcma.leadster.entity.LeadWithAppt;
 
 import java.util.List;
 
@@ -23,18 +25,17 @@ public interface LeadDao {
     @Query("SELECT * FROM lead WHERE :id = id")
     Lead getLead(int id);
 
-    //TODO: 10/10/2017: uncomment the conflict strategy
-    //@Insert(onConflict = OnConflictStrategy.REPLACE)
-    @Insert
+    @Query("SELECT * FROM lead Where :id = id")
+    LeadWithAppt loadApptByLeadId(int id);
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllLeads(List<Lead> leads);
 
-    //// TODO: 10/10/2017 : change the variable to say lead and not goal.
-    @Insert
-    Long insertLead(Lead goal);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Long insertLead(Lead lead);
 
-    // TODO: 10/10/2017: uncomment the conflict strategy
-    //@Update(onConflict = OnConflictStrategy.REPLACE)
-    @Update(onConflict = 1)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateLead(Lead lead);
 
     @Delete
