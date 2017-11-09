@@ -47,9 +47,9 @@ public class LeadListFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_lead_list, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.lead_recycler_view);
+        recyclerView = rootView.findViewById(R.id.lead_recycler_view);
 
-        noLeadsTxt = (TextView) rootView.findViewById(R.id.lead_empty_element);
+        noLeadsTxt = rootView.findViewById(R.id.lead_empty_element);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);

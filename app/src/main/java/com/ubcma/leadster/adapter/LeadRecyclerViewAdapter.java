@@ -22,37 +22,6 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
 
     public List<Lead> mLeads;
 
-    public class LeadViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView leadName;
-        public TextView leadNumber;
-        public TextView followUp;
-        public TextView leadType;
-        public ImageView leadImage;
-
-        public Context context;
-
-        public LeadViewHolder(Context context, View itemView) {
-            super(itemView);
-            leadImage = (ImageView) itemView.findViewById(R.id.lead_image);
-            leadName = (TextView) itemView.findViewById(R.id.lead_name);
-            leadNumber = (TextView) itemView.findViewById(R.id.lead_number);
-            followUp = (TextView) itemView.findViewById(R.id.follow_up);
-            leadType = (TextView) itemView.findViewById(R.id.lead_type);
-
-            itemView.setOnClickListener(this);
-        }
-
-        // Handles the row being being clicked
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition(); // gets item position
-            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Intent intent = new Intent(v.getContext(), LeadDetailsActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        }
-    }
-
     public LeadRecyclerViewAdapter(List<Lead> leads) {
         this.mLeads = leads;
     }
@@ -70,12 +39,7 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
     @Override
     public void onBindViewHolder(LeadViewHolder holder, int position) {
 
-        Lead lead = mLeads.get(position);
-        holder.leadName.setText(lead.getName());
-        holder.leadNumber.setText(lead.getNumber());
-        holder.leadImage.setImageResource(R.drawable.ic_account_circle_black_48dp);
-        holder.leadType.setText(lead.getType());
-        holder.followUp.setText("1st Follow Up");
+        holder.bind(position);
     }
 
     @Override
@@ -85,6 +49,50 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
 
     public List<Lead> getLeadsList(){
         return mLeads;
+    }
+
+    public class LeadViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public TextView leadName;
+        public TextView leadNumber;
+        public TextView followUp;
+        public TextView leadType;
+        public ImageView leadImage;
+
+        public Context context;
+
+        public LeadViewHolder(Context context, View itemView) {
+            super(itemView);
+            leadImage = itemView.findViewById(R.id.lead_image);
+            leadName = itemView.findViewById(R.id.lead_name);
+            leadNumber = itemView.findViewById(R.id.lead_number);
+            followUp = itemView.findViewById(R.id.follow_up);
+            leadType = itemView.findViewById(R.id.lead_type);
+
+            itemView.setOnClickListener(this);
+        }
+
+        // Handles the row being being clicked
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Lead lead = (Lead) v.getTag();
+                Intent intent = new Intent(v.getContext(), LeadDetailsActivity.class);
+                intent.putExtra("leadId", lead.getId());
+                v.getContext().startActivity(intent);
+            }
+        }
+
+        public void bind(int position) {
+
+            Lead lead = mLeads.get(position);
+            leadName.setText(lead.getName());
+            leadNumber.setText(lead.getNumber());
+            leadImage.setImageResource(R.drawable.ic_account_circle_black_48dp);
+            leadType.setText(lead.getType());
+            followUp.setText("1st Follow Up");
+            itemView.setTag(lead);
+        }
     }
 
 

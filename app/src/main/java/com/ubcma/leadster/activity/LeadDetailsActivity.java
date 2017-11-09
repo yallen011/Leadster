@@ -30,6 +30,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
     private final String TAG = LeadDetailsActivity.class.getSimpleName();
     LeadDao leadDao;
     Lead lead;
+    int mLeadId;
 
     TextView followUpCallDate, interviewDate, partyDate, leadNumber, leadEmail, followUpAttempt;
 
@@ -40,8 +41,9 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
 
         leadDao = LeadsterApp.get().getDB().leadDao();
         lead = new Lead();
+        mLeadId = getIntent().getIntExtra("leadId", 1);
 
-        initializeLeadDetails();
+        loadLeadDetails();
         initializeViews();
         leadWithAppointment();//used for testing currently
     }
@@ -65,10 +67,10 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
                     Log.d(TAG, "onPostExecute: Appointments - " + lead.appointments.size());
                 }
             }
-        }.execute(new Integer(1));
+        }.execute(mLeadId);
     }
 
-    private void initializeLeadDetails() {
+    private void loadLeadDetails() {
 
         new AsyncTask<Integer, Void, Lead>() {
 
@@ -87,15 +89,15 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
                 followUpAttempt.setText(lead.getFollowUpAttempt());
 
             }
-        }.execute(new Integer(1));
+        }.execute(mLeadId);
     }
 
     private void initializeViews() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +114,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
 //        // Apply the adapter to the spinner
 //        spinner.setAdapter(adapter);
 
-        followUpCallDate = (TextView) findViewById(R.id.cld_follow_up_call_detail);
+        followUpCallDate = findViewById(R.id.cld_follow_up_call_detail);
 
         followUpCallDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +123,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
             }
         });
 
-        interviewDate = (TextView) findViewById(R.id.cld_interview_detail);
+        interviewDate = findViewById(R.id.cld_interview_detail);
         interviewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +131,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
             }
         });
 
-        partyDate = (TextView) findViewById(R.id.cld_party_detail);
+        partyDate = findViewById(R.id.cld_party_detail);
         partyDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +139,9 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
             }
         });
 
-        leadNumber = (TextView) findViewById(R.id.cld_phone_detail);
-        leadEmail = (TextView) findViewById(R.id.cld_email_detail);
-        followUpAttempt = (TextView) findViewById(R.id.cld_attempts_detail);
+        leadNumber = findViewById(R.id.cld_phone_detail);
+        leadEmail = findViewById(R.id.cld_email_detail);
+        followUpAttempt = findViewById(R.id.cld_attempts_detail);
     }
 
     /**change date to what was selected by the user
@@ -191,7 +193,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
     public void onDone(View clickedView, String date, String time) {
 
 
-        String formattedDateTime = date + " "+ time;
+        String formattedDateTime =  date + " "+ time;
         saveAppointment(formattedDateTime);
         setClickedText(clickedView, formattedDateTime);
     }
