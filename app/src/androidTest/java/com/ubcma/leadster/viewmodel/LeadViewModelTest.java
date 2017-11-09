@@ -44,12 +44,14 @@ public class LeadViewModelTest {
 
     @Test
     public void shouldReturnListOfUsers() throws Exception {
-        mLeadDao.insertAllLeads(getLeads());
+        mLeadDao.insertLead(getLead());
 
         // TODO: 11/2/2017 find away to load fake data for testing
         List<Lead> resultLeads = viewModel.loadLeads();
-        assertTrue(resultLeads.size() == 2);
+        assertTrue(resultLeads.size() == 1);
     }
+
+
 
     private List<Lead> getLeads() {
 
@@ -75,6 +77,19 @@ public class LeadViewModelTest {
         leadsList.add(lead2);
 
         return leadsList;
+    }
+
+    private Lead getLead() {
+
+        Lead lead = new Lead();
+        lead.setNumber("770-808-9955");
+        lead.setName("Name");
+        lead.setEmail("test@test.com");
+        lead.setType("Team Member");
+        lead.setFollowUpAttempt("1");
+        lead.setStatus(Lead.Status.NEW);
+
+        return lead;
     }
 
 }

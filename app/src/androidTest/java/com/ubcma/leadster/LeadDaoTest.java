@@ -15,7 +15,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -57,13 +60,47 @@ public class LeadDaoTest {
 
         Lead actualLead = mLeadDao.getLead(expectedLead.getId());
 
-        assertEquals("Lead Name should be the same", expectedLead.getName(),actualLead.getName());
-        assertEquals("Lead Email should be the same", expectedLead.getEmail(), actualLead.getEmail());
-        assertEquals("Lead Number should be the same", expectedLead.getNumber(), actualLead.getNumber());
-        assertEquals("Lead Type should be the same", expectedLead.getType(), actualLead.getType());
-        assertEquals("Lead Follow Up Attempt should be the same", expectedLead.getFollowUpAttempt(),
-                actualLead.getFollowUpAttempt());
+        assertThat("Lead Name should be the same", actualLead.getName(), is(expectedLead.getName()));
+        assertThat("Lead Email should be the same", actualLead.getEmail(), is(expectedLead.getEmail()));
+        assertThat("Lead Number should be the same", actualLead.getNumber(), is(expectedLead.getNumber()));
+        assertThat("Lead Type should be the same", actualLead.getType(), is(expectedLead.getType()));
+        assertThat("Lead Follow Up Attempt should be the same", actualLead.getFollowUpAttempt(),
+                is(expectedLead.getFollowUpAttempt()));
 
+    }
+
+    @Test
+    public void shouldRetrieveAllLeads() throws Exception {
+        Lead leads = getLead();
+        mLeadDao.insertLead(leads);
+        List<Lead> lead = mLeadDao.getAllLeads();
+        //List<Lead> resultLeads = mLeadDao.getAllLeads();
+        assertTrue(lead.size() == 1);
+    }
+
+    private List<Lead> getLeads(){
+        List<Lead> leadsList = new ArrayList<>();
+
+        Lead lead = new Lead();
+        lead.setNumber("770-808-9955");
+        lead.setName("Name");
+        lead.setEmail("test@test.com");
+        lead.setType("Team Member");
+        lead.setFollowUpAttempt("1");
+        lead.setStatus(Lead.Status.NEW);
+
+        Lead lead2 = new Lead();
+        lead.setNumber("770-808-9954");
+        lead.setName("Name2");
+        lead.setEmail("test2@test.com");
+        lead.setType("Team Member");
+        lead.setFollowUpAttempt("1");
+        lead.setStatus(Lead.Status.NEW);
+
+        leadsList.add(lead);
+        leadsList.add(lead2);
+
+        return leadsList;
     }
 
     private Lead getLead() {

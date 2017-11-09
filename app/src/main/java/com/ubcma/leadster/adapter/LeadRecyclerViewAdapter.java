@@ -71,7 +71,7 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
             itemView.setOnClickListener(this);
         }
 
-        // Handles the row being being clicked
+        // Handles the row being clicked
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition(); // gets item position

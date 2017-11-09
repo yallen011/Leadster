@@ -29,10 +29,13 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
 
     private final String TAG = LeadDetailsActivity.class.getSimpleName();
     LeadDao leadDao;
-    Lead lead;
+    Lead mLead;
     int mLeadId;
 
     TextView followUpCallDate, interviewDate, partyDate, leadNumber, leadEmail, followUpAttempt;
+    TextView leadStatus, leadName;
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
         setContentView(R.layout.activity_lead_details);
 
         leadDao = LeadsterApp.get().getDB().leadDao();
-        lead = new Lead();
+        mLead = new Lead();
         mLeadId = getIntent().getIntExtra("leadId", 1);
 
         loadLeadDetails();
@@ -54,17 +57,17 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
             @Override
             protected LeadWithAppt doInBackground(Integer... params) {
 
-                LeadWithAppt lead = leadDao.loadApptByLeadId(params[0]);
-                return lead;
+                LeadWithAppt leadWithAppt = leadDao.loadApptByLeadId(params[0]);
+                return leadWithAppt;
             }
 
             @Override
-            protected void onPostExecute(LeadWithAppt lead) {
-                Log.d(TAG, "onPostExecute: Lead - " + lead.lead.getName());
-                if(lead.appointments ==null){
+            protected void onPostExecute(LeadWithAppt leadWithAppt) {
+                Log.d(TAG, "onPostExecute: Lead - " + leadWithAppt.lead.getName());
+                if(leadWithAppt.appointments ==null){
                     Log.d(TAG, "onPostExecute: Appointments - leads have no appts");
                 }else{
-                    Log.d(TAG, "onPostExecute: Appointments - " + lead.appointments.size());
+                    Log.d(TAG, "onPostExecute: Appointments - " + leadWithAppt.appointments.size());
                 }
             }
         }.execute(mLeadId);
@@ -87,6 +90,8 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
                 leadEmail.setText(lead.getEmail());
                 // TODO: 10/10/2017 add follow up attempts to lead
                 followUpAttempt.setText(lead.getFollowUpAttempt());
+                leadStatus.setText("Status: " + lead.getStatus().getStatus());
+                getSupportActionBar().setTitle(lead.getName());
 
             }
         }.execute(mLeadId);
@@ -142,6 +147,12 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
         leadNumber = findViewById(R.id.cld_phone_detail);
         leadEmail = findViewById(R.id.cld_email_detail);
         followUpAttempt = findViewById(R.id.cld_attempts_detail);
+
+        leadStatus = findViewById(R.id.tvLeadStatus);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
     }
 
     /**change date to what was selected by the user
