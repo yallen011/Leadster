@@ -17,17 +17,20 @@ import android.widget.TextView;
 import com.ubcma.leadster.LeadsterApp;
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.dao.LeadDao;
-import com.ubcma.leadster.database.LeadsterDB;
 import com.ubcma.leadster.entity.Lead;
+import com.ubcma.leadster.fragment.DatePickerFragment;
+import com.ubcma.leadster.fragment.TimePickerFragment;
 
-import static android.R.attr.fragment;
+import java.util.Date;
 
-public class NewLeadActivity extends AppCompatActivity {
+public class NewLeadActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickerListener, TimePickerFragment.OnTimePickerListener {
 
     private static final String TAG = NewLeadActivity.class.getSimpleName();
     LeadDao leadDao;
     Lead lead;
     String mLeadType;
+    TextView mLeadName, mLeadNumber, mLeadEmail, mAddAppointment;
+    Button mSave, mCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,16 @@ public class NewLeadActivity extends AppCompatActivity {
         leadDao = LeadsterApp.get().getDB().leadDao();
         lead = new Lead();
 
-        Spinner spinner = (Spinner) findViewById(R.id.phone_type);
+        initializeViews();
+
+
+        setSaveCancelActions();
+
+
+    }
+
+    private void initializeViews() {
+        Spinner spinner = findViewById(R.id.phone_type);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.phone_type_array, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
@@ -46,30 +58,39 @@ public class NewLeadActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         //TODO: add radio button functionality
-        RadioGroup leadTypeGroup = (RadioGroup)findViewById(R.id.lead_type_rg);
+        RadioGroup leadTypeGroup = findViewById(R.id.lead_type_rg);
         leadTypeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                RadioButton leadTypeBtn = (RadioButton) findViewById(checkedId);
+                RadioButton leadTypeBtn = findViewById(checkedId);
                 mLeadType = leadTypeBtn.getText().toString();
             }
         });
 
-        final TextView leadName = (TextView) findViewById(R.id.name);
-        final TextView leadNumber = (TextView) findViewById(R.id.pNum);
-        TextView leadAddress = (TextView) findViewById(R.id.address);
-        final TextView leadEmail = (TextView) findViewById(R.id.email);
+        mLeadName = findViewById(R.id.name);
+        mLeadNumber = findViewById(R.id.pNum);
+        TextView leadAddress = findViewById(R.id.address);
+        mLeadEmail = findViewById(R.id.email);
 
-        Button save = (Button) findViewById(R.id.save);
-        Button cancel = (Button) findViewById(R.id.cancel);
+        mSave = findViewById(R.id.save);
+        mCancel = findViewById(R.id.cancel);
 
-
-        save.setOnClickListener(new View.OnClickListener() {
+        mAddAppointment = findViewById(R.id.tv_add_appt);
+        mAddAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lead.setName(leadName.getText().toString());
-                lead.setEmail(leadEmail.getText().toString());
-                lead.setNumber(leadNumber.getText().toString());
+                pickDate(v);
+            }
+        });
+    }
+
+    private void setSaveCancelActions() {
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lead.setName(mLeadName.getText().toString());
+                lead.setEmail(mLeadEmail.getText().toString());
+                lead.setNumber(mLeadNumber.getText().toString());
                 lead.setType(mLeadType);
                 lead.setStatus(Lead.Status.NEW);
                 lead.setFollowUpAttempt("1");
@@ -92,26 +113,41 @@ public class NewLeadActivity extends AppCompatActivity {
                     }
                 }.execute(lead);
 
+                backToHome();
 
-
-                /*TODO: pass data back to the main activity that hosts the lead list fragment.
-                  send a flag that will be sent to fragment that calls a method to pull all the leads from
-                  the database. or send data through the instance method that passes the flag on create
-                  of the fragment
-                */
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                backToHome();
             }
         });
+    }
 
+    protected void backToHome(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * method to open datepicker dialog
+     * @param clickedView view clicked by the user to select the date
+     */
+    public void pickDate(View clickedView){
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setClickedView(clickedView);
+        datePickerFragment.show(getSupportFragmentManager(), "date");
+    }
+
+    @Override
+    public void onDone(View view, Date date) {
+
+    }
+
+    @Override
+    public void onDone(View view, String date, String time) {
 
     }
 }

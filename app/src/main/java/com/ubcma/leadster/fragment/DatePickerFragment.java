@@ -36,7 +36,7 @@ public class DatePickerFragment extends DialogFragment {
 
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.fragment_date_picker_dialog,null);
-        datePicker = (DatePicker) v.findViewById(R.id.date_picker);
+        datePicker = v.findViewById(R.id.date_picker);
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setPositiveButton(android.R.string.ok,

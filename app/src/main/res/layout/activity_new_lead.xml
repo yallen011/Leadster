@@ -41,14 +41,14 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
 
 <!-- TODO: need to fix grid colum width. column 0 taking whole screen space -->
 <!-- currently can't see widgets in column 1 -->
-<Spinner
-    android:id="@+id/phone_type"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignBottom="@id/input_layout_pNum"
-    android:layout_below="@id/input_layout_name"
-    android:layout_toRightOf="@id/input_layout_pNum"
-    style="@android:style/Widget.Holo.Light.Spinner" />
+    <Spinner
+        android:id="@+id/phone_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/input_layout_pNum"
+        android:layout_below="@id/input_layout_name"
+        android:layout_toRightOf="@id/input_layout_pNum"
+        style="@android:style/Widget.Holo.Light.Spinner" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_email"
@@ -93,67 +93,92 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
             android:hint="@string/hint_comments" />
     </android.support.design.widget.TextInputLayout>
 
-<TextView
-    android:id="@+id/leadtype"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:ems="10"
-    android:paddingTop="16dp"
-    android:text="@string/lead_type"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_below="@id/input_layout_comments"/>
+    <TextView
+        android:id="@+id/leadtype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:paddingTop="16dp"
+        android:text="@string/lead_type"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@id/input_layout_comments"/>
 
-<RadioGroup
-    android:id="@+id/lead_type_rg"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:checkedButton="@+id/team_member_rb"
-    android:orientation="vertical"
-    android:layout_below="@id/leadtype">
-
-    <RadioButton
-        android:id="@+id/team_member_rb"
+    <RadioGroup
+        android:id="@+id/lead_type_rg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onLeadTypeClicked"
-        android:text="@string/team_member" />
+        android:checkedButton="@+id/team_member_rb"
+        android:orientation="vertical"
+        android:layout_below="@id/leadtype">
 
-    <RadioButton
-        android:id="@+id/customer_rb"
-        android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/team_member_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onLeadTypeClicked"
+            android:text="@string/team_member" />
+
+        <RadioButton
+            android:id="@+id/customer_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onLeadTypeClicked"
+            android:text="@string/customer" />
+    </RadioGroup>
+    <LinearLayout
+        android:id="@+id/add_appt_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onLeadTypeClicked"
-        android:text="@string/customer" />
-</RadioGroup>
+        android:orientation="vertical"
+        android:layout_below="@id/lead_type_rg">
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#FF909090"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/tv_add_appt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Appointment"
+            android:ems="10"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"/>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_below="@id/lead_type_rg"
-    android:layout_alignParentBottom="true"
-    android:gravity="bottom"
-    style="?android:attr/buttonBarStyle">
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="0dp"
+
+    <LinearLayout
+        android:id="@+id/save_cancel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_below="@id/add_appt_container"
+        android:layout_alignParentBottom="true"
         android:gravity="bottom"
-        android:text="@string/cancel"
-        android:textAlignment="center"
-        style="?android:attr/buttonBarButtonStyle"/>
+        style="?android:attr/buttonBarStyle">
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:textAlignment="center"
-        android:text="@string/save"
-        style="?android:attr/buttonBarButtonStyle"/>
-</LinearLayout>
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="@string/cancel"
+            android:textAlignment="center"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:textAlignment="center"
+            android:text="@string/save"
+            style="?android:attr/buttonBarButtonStyle"/>
+    </LinearLayout>
 </RelativeLayout>
 

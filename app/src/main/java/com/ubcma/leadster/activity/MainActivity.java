@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // Toolbar code
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
         //Go to create lead screen when floating action button is clicked
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,18 +47,18 @@ public class MainActivity extends AppCompatActivity
         });
 
         //Layout for Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
         //create the viewpager for navigation and add the fragments
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager1);
+        ViewPager viewPager = findViewById(R.id.viewpager1);
         LeadPagerAdapter pagerAdapter = new LeadPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new LeadListFragment(), getString(R.string.title_lead_list));
         pagerAdapter.addFragment(new ProgressFragment(), getString(R.string.title_progress));
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         if(tabLayout != null){
             tabLayout.setupWithViewPager(viewPager);
         }
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

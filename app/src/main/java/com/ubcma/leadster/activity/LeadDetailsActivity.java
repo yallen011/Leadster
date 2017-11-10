@@ -33,7 +33,7 @@ public class LeadDetailsActivity extends AppCompatActivity implements DatePicker
     int mLeadId;
 
     TextView followUpCallDate, interviewDate, partyDate, leadNumber, leadEmail, followUpAttempt;
-    TextView leadStatus, leadName;
+    TextView leadStatus;
 
     Toolbar toolbar;
 
