@@ -202,16 +202,16 @@ public class GoalsActivity extends AppCompatActivity implements GoalDetailsFragm
      */
     private void initializeViews() {
 
-        fab_recruits = (FloatingActionButton) findViewById(R.id.fab_recruits);
-        fab_calls = (FloatingActionButton) findViewById(R.id.fab_calls);
-        fab_interviews = (FloatingActionButton) findViewById(R.id.fab_interviews);
-        fab_parties = (FloatingActionButton) findViewById(R.id.fab_parties);
-        fab = (FloatingActionButton) findViewById(R.id.fab_goals);
+        fab_recruits = findViewById(R.id.fab_recruits);
+        fab_calls = findViewById(R.id.fab_calls);
+        fab_interviews = findViewById(R.id.fab_interviews);
+        fab_parties = findViewById(R.id.fab_parties);
+        fab = findViewById(R.id.fab_goals);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_goals);
-        goalsListView = (RecyclerView) findViewById(R.id.goals_list);
+        toolbar = findViewById(R.id.toolbar_goals);
+        goalsListView = findViewById(R.id.goals_list);
 
-        noGoalsTxt = (TextView) findViewById(R.id.emptyElement);
+        noGoalsTxt = findViewById(R.id.emptyElement);
     }
 
     /**

@@ -20,23 +20,6 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ViewHo
 
     private List<Progress> mProgressList;
 
-
-    //retrieves the views that are in the cardview
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-
-        TextView mTitle, mPercent, mProgress;
-        ProgressBar mProgressBar;
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            mTitle = (TextView) itemView.findViewById(R.id.progress_title);
-            mPercent = (TextView) itemView.findViewById(R.id.progress_percent);
-            mProgress = (TextView) itemView.findViewById(R.id.progress_text);
-            mProgressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
-
-        }
-    }
-
     //sets the list of data to be displayed
     public ProgressAdapter(List<Progress> progressList){
         this.mProgressList = progressList;
@@ -72,5 +55,21 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ViewHo
     @Override
     public int getItemCount() {
         return mProgressList.size();
+    }
+
+    //retrieves the views that are in the cardview
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+        TextView mTitle, mPercent, mProgress;
+        ProgressBar mProgressBar;
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            mTitle = itemView.findViewById(R.id.progress_title);
+            mPercent = itemView.findViewById(R.id.progress_percent);
+            mProgress = itemView.findViewById(R.id.progress_text);
+            mProgressBar = itemView.findViewById(R.id.progress_bar);
+
+        }
     }
 }

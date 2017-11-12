@@ -34,7 +34,7 @@
             android:id="@+id/input_recuits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_recuit_leads" />
+            android:hint="@string/hint_recruit_leads" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

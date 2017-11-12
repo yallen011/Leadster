@@ -115,14 +115,12 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
             android:id="@+id/team_member_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onLeadTypeClicked"
             android:text="@string/team_member" />
 
         <RadioButton
             android:id="@+id/customer_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onLeadTypeClicked"
             android:text="@string/customer" />
     </RadioGroup>
     <LinearLayout

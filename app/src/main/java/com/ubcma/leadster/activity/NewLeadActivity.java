@@ -41,8 +41,6 @@ public class NewLeadActivity extends AppCompatActivity implements DatePickerFrag
         lead = new Lead();
 
         initializeViews();
-
-
         setSaveCancelActions();
 
 
