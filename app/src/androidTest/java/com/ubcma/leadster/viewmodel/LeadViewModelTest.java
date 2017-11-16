@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.ubcma.leadster.LeadTestUtil;
 import com.ubcma.leadster.dao.LeadDao;
 import com.ubcma.leadster.database.LeadsterDB;
 import com.ubcma.leadster.entity.Lead;
@@ -15,10 +16,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Yvonne on 11/2/2017.
@@ -27,14 +36,13 @@ import static org.junit.Assert.*;
 public class LeadViewModelTest {
 
     private LeadViewModel viewModel;
-    private LeadDao mLeadDao;
     private LeadsterDB mDb;
 
     @Before
     public void createDb() {
         Context context = InstrumentationRegistry.getTargetContext();
         mDb = Room.inMemoryDatabaseBuilder(context, LeadsterDB.class).build();
-        mLeadDao = mDb.leadDao();
+        viewModel = new LeadViewModel();
     }
 
     @After
@@ -43,53 +51,23 @@ public class LeadViewModelTest {
     }
 
     @Test
-    public void shouldReturnListOfUsers() throws Exception {
-        mLeadDao.insertLead(getLead());
+    public void shouldSaveLeadAndReturnId() throws Exception {
+        Lead lead = LeadTestUtil.getLead();
+        int expectedLeadId = 4;
+        lead.setId(expectedLeadId);
+        int actualLeadId = viewModel.saveLead(lead);
 
-        // TODO: 11/2/2017 find away to load fake data for testing
+        assertThat("Lead id should be equal", actualLeadId, is(expectedLeadId));
+
+    }
+
+    @Test
+    public void shouldReturnListOfLeads() throws Exception {
+        Lead lead = LeadTestUtil.getLead();
+        lead.setId(viewModel.saveLead(lead));
+
         List<Lead> resultLeads = viewModel.loadLeads();
-        assertTrue(resultLeads.size() == 1);
+
+       assertThat(resultLeads.size(), greaterThanOrEqualTo(1));
     }
-
-
-
-    private List<Lead> getLeads() {
-
-        List<Lead> leadsList = new ArrayList<>();
-
-        Lead lead = new Lead();
-        lead.setNumber("770-808-9955");
-        lead.setName("Name");
-        lead.setEmail("test@test.com");
-        lead.setType("Team Member");
-        lead.setFollowUpAttempt("1");
-        lead.setStatus(Lead.Status.NEW);
-
-        Lead lead2 = new Lead();
-        lead.setNumber("770-808-9954");
-        lead.setName("Name2");
-        lead.setEmail("test2@test.com");
-        lead.setType("Team Member");
-        lead.setFollowUpAttempt("1");
-        lead.setStatus(Lead.Status.NEW);
-
-        leadsList.add(lead);
-        leadsList.add(lead2);
-
-        return leadsList;
-    }
-
-    private Lead getLead() {
-
-        Lead lead = new Lead();
-        lead.setNumber("770-808-9955");
-        lead.setName("Name");
-        lead.setEmail("test@test.com");
-        lead.setType("Team Member");
-        lead.setFollowUpAttempt("1");
-        lead.setStatus(Lead.Status.NEW);
-
-        return lead;
-    }
-
 }

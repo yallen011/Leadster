@@ -15,11 +15,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.ubcma.leadster.LeadTestUtil.getLead;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Yvonne on 11/2/2017.
@@ -77,43 +79,4 @@ public class LeadDaoTest {
         //List<Lead> resultLeads = mLeadDao.getAllLeads();
         assertTrue(lead.size() == 1);
     }
-
-    private List<Lead> getLeads(){
-        List<Lead> leadsList = new ArrayList<>();
-
-        Lead lead = new Lead();
-        lead.setNumber("770-808-9955");
-        lead.setName("Name");
-        lead.setEmail("test@test.com");
-        lead.setType("Team Member");
-        lead.setFollowUpAttempt("1");
-        lead.setStatus(Lead.Status.NEW);
-
-        Lead lead2 = new Lead();
-        lead.setNumber("770-808-9954");
-        lead.setName("Name2");
-        lead.setEmail("test2@test.com");
-        lead.setType("Team Member");
-        lead.setFollowUpAttempt("1");
-        lead.setStatus(Lead.Status.NEW);
-
-        leadsList.add(lead);
-        leadsList.add(lead2);
-
-        return leadsList;
-    }
-
-    private Lead getLead() {
-
-        Lead lead = new Lead();
-        lead.setNumber("770-808-9955");
-        lead.setName("Name");
-        lead.setEmail("test@test.com");
-        lead.setType("Team Member");
-        lead.setFollowUpAttempt("1");
-        lead.setStatus(Lead.Status.NEW);
-
-        return lead;
-    }
-
 }

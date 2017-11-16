@@ -39,8 +39,6 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
             android:inputType="phone" />
     </android.support.design.widget.TextInputLayout>
 
-<!-- TODO: need to fix grid colum width. column 0 taking whole screen space -->
-<!-- currently can't see widgets in column 1 -->
     <Spinner
         android:id="@+id/phone_type"
         android:layout_width="match_parent"
@@ -129,22 +127,38 @@ tools:context="com.ubcma.leadster.activity.NewLeadActivity">
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/lead_type_rg">
+
+        <TextView
+            android:id="@+id/tv_appointments_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Appointments"
+            android:ems="10"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:paddingTop="16dp"/>
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#FF909090"
-            android:layout_marginTop="16dp"/>
-        <TextView
-            android:id="@+id/tv_add_appt"
+            android:background="#FF909090"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Appointment"
-            android:ems="10"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:paddingTop="8dp"
-            android:paddingBottom="4dp"/>
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_black_24dp"
+                android:paddingTop="3dp"/>
+            <TextView
+                android:id="@+id/tv_add_appt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Appointment"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp"/>
+        </LinearLayout>
     </LinearLayout>
 
 
