@@ -1,196 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/newLead"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingBottom="@dimen/activity_vertical_margin"
-android:paddingLeft="@dimen/activity_horizontal_margin"
-android:paddingRight="@dimen/activity_horizontal_margin"
-android:paddingTop="@dimen/activity_vertical_margin"
-tools:context="com.ubcma.leadster.activity.NewLeadActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ubcma.leadster.activity.NewLeadActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_name"
+    <RelativeLayout
+        android:id="@+id/newLead"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-        <EditText
-            android:id="@+id/name"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
-            android:inputType="textPersonName" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_pNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_layout_name">
-
-        <EditText
-            android:id="@+id/pNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_pNum"
-            android:inputType="phone" />
-    </android.support.design.widget.TextInputLayout>
-
-    <Spinner
-        android:id="@+id/phone_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/input_layout_pNum"
-        android:layout_below="@id/input_layout_name"
-        android:layout_toRightOf="@id/input_layout_pNum"
-        style="@android:style/Widget.Holo.Light.Spinner" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_layout_pNum">
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/email_label"
-            android:inputType="textEmailAddress" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_layout_email">
-
-        <EditText
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_address"
-            android:inputType="textPostalAddress" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_comments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_layout_address">
-
-        <EditText
-            android:id="@+id/comments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_comments" />
-    </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:id="@+id/leadtype"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:paddingTop="16dp"
-        android:text="@string/lead_type"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@id/input_layout_comments"/>
-
-    <RadioGroup
-        android:id="@+id/lead_type_rg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkedButton="@+id/team_member_rb"
-        android:orientation="vertical"
-        android:layout_below="@id/leadtype">
-
-        <RadioButton
-            android:id="@+id/team_member_rb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_member" />
-
-        <RadioButton
-            android:id="@+id/customer_rb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/customer" />
-    </RadioGroup>
-    <LinearLayout
-        android:id="@+id/add_appt_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/lead_type_rg">
-
-        <TextView
-            android:id="@+id/tv_appointments_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Appointments"
-            android:ems="10"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:paddingTop="16dp"/>
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#FF909090"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_black_24dp"
-                android:paddingTop="3dp"/>
-            <TextView
-                android:id="@+id/tv_add_appt"
+            <EditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Appointment"
-                android:paddingTop="8dp"
-                android:paddingBottom="4dp"/>
+                android:hint="@string/hint_name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_pNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_layout_name">
+
+            <EditText
+                android:id="@+id/pNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_pNum"
+                android:inputType="phone" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/phone_type"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/input_layout_pNum"
+            android:layout_below="@id/input_layout_name"
+            android:layout_toRightOf="@id/input_layout_pNum" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_layout_pNum">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/email_label"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_layout_email">
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_address"
+                android:inputType="textPostalAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_layout_address">
+
+            <EditText
+                android:id="@+id/comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_comments" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/leadtype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_layout_comments"
+            android:ems="10"
+            android:paddingTop="16dp"
+            android:text="@string/lead_type"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioGroup
+            android:id="@+id/lead_type_rg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/leadtype"
+            android:checkedButton="@+id/team_member_rb"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/team_member_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/team_member" />
+
+            <RadioButton
+                android:id="@+id/customer_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/customer" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/add_appt_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lead_type_rg"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_appointments_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:paddingTop="16dp"
+                android:text="Appointments"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#FF909090" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:src="@drawable/ic_add_black_24dp" />
+
+                <TextView
+                    android:id="@+id/tv_add_appt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="8dp"
+                    android:text="Add Appointment"
+                    android:background="?android:attr/selectableItemBackground"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/save_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/add_appt_container"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom"
-        style="?android:attr/buttonBarStyle">
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/save_cancel"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/add_appt_container"
             android:gravity="bottom"
-            android:text="@string/cancel"
-            android:textAlignment="center"
-            style="?android:attr/buttonBarButtonStyle"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:textAlignment="center"
-            android:text="@string/save"
-            style="?android:attr/buttonBarButtonStyle"/>
-    </LinearLayout>
-</RelativeLayout>
+            <Button
+                android:id="@+id/cancel"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="@string/cancel"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/save"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="@string/save"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
 

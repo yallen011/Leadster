@@ -41,7 +41,6 @@
                         android:layout_height="wrap_content"
                         android:padding="8dp"
                         android:textStyle="bold"
-                        android:textColor="#000000"
                         android:text="@string/phone_label"
                         android:textSize="18dp"
                         android:layout_toRightOf="@+id/cld_phone"/>
@@ -53,6 +52,7 @@
                         android:padding="8dp"
                         android:text="770-808-2234"
                         android:textSize="18dp"
+                        android:textColor="#000000"
                         android:background="?android:attr/selectableItemBackground"
                         android:layout_alignParentRight="true"/>
 
@@ -70,7 +70,6 @@
                     android:textStyle="bold"
                     android:text="@string/email_label"
                     android:textSize="18dp"
-                    android:textColor="#000000"
                     android:padding="8dp"
                     android:layout_toRightOf="@+id/cld_email"
                     android:layout_below="@id/cld_phone_label"/>
@@ -81,6 +80,7 @@
                     android:padding="8dp"
                     android:text="test@gmail.com"
                     android:textSize="18dp"
+                    android:textColor="#000000"
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/cld_phone_detail"/>
@@ -109,7 +109,6 @@
                     android:text="@string/attempts_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:textColor="#000000"
                     android:layout_alignParentLeft="true"/>
                 <!--<Spinner
                     android:id="@+id/cld_attempts_detail"
@@ -128,6 +127,7 @@
                     android:text="3"
                     android:textSize="18dp"
                     android:textStyle=""
+                    android:textColor="#000000"
                     android:layout_alignParentRight="true"/>
 
                 <TextView
@@ -138,7 +138,6 @@
                     android:text="@string/follow_up_call_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:textColor="#000000"
                     android:layout_below="@id/cld_attempts_label"/>
                 <ImageView
                     android:id="@+id/cld_calendar1"
@@ -157,6 +156,7 @@
                     android:padding="8dp"
                     android:text="Mon,Aug 2 4:30PM"
                     android:textSize="18dp"
+                    android:textColor="#000000"
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_below="@id/cld_attempts_detail"
                     android:layout_alignParentRight="true"/>
@@ -184,7 +184,6 @@
                     android:text="@string/interview_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:textColor="#000000"
                     android:layout_alignParentLeft="true"/>
                 <ImageView
                     android:id="@+id/cld_calendar2"
@@ -200,6 +199,7 @@
                     android:padding="8dp"
                     android:text="Fri, Sept 2 3:00PM"
                     android:textSize="18dp"
+                    android:textColor="#000000"
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_alignParentRight="true"/>
 
@@ -212,7 +212,6 @@
                     android:text="@string/party_label"
                     android:textStyle="bold"
                     android:textSize="18dp"
-                    android:textColor="#000000"
                     android:layout_below="@id/cld_interview_label"/>
                 <TextView
                     android:id="@+id/cld_party_detail"
@@ -221,6 +220,7 @@
                     android:padding="8dp"
                     android:text="Wed, Sept 2 4:00PM"
                     android:textSize="18dp"
+                    android:textColor="#000000"
                     android:background="?android:attr/selectableItemBackground"
                     android:layout_below="@id/cld_interview_detail"
                     android:layout_alignParentRight="true"/>

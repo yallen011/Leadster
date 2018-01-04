@@ -2,9 +2,9 @@ package com.ubcma.leadster.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,8 +26,6 @@ import com.ubcma.leadster.viewmodel.LeadViewModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static android.R.attr.id;
 
 public class NewLeadActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickerListener, TimePickerFragment.OnTimePickerListener {
 
@@ -197,14 +195,16 @@ public class NewLeadActivity extends AppCompatActivity implements DatePickerFrag
 
         int index = mAddAppointmentContainer.indexOfChild(mAddAppointmentTv);
 
-        Button button = new Button(this);
+        TextView newAppointment = new TextView(this);
 
         //added LayoutParams
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        mAddAppointmentContainer.addView(button, index);
+        newAppointment.setLayoutParams(params);
+        newAppointment.setPadding(8,4,0,4);
+        mAddAppointmentContainer.addView(newAppointment, index);
 
 
-        setClickedText(clickedView, formattedDateTime);
+        setClickedText(newAppointment, formattedDateTime);
     }
 
     private void addAppointment(String formattedDateTime) {
