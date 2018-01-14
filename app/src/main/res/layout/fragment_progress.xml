@@ -8,6 +8,6 @@
     android:fitsSystemWindows="true"
     android:background="@color/grey">
 
-    <include layout="@layout/content_lead_list" />
+    <include layout="@layout/content_progress_list" />
 
 </android.support.design.widget.CoordinatorLayout>

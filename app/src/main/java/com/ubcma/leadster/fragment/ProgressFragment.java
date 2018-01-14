@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class ProgressFragment extends Fragment {
 
+    public static final String TAG = ProgressFragment.class.getSimpleName();
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
@@ -35,7 +36,7 @@ public class ProgressFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.lead_recycler_view);
+        RecyclerView recyclerView = rootView.findViewById(R.id.progress_recycler_view);
 
 
         // use a linear layout manager

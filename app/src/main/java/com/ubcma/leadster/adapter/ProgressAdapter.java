@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Yvonne on 6/11/2017.
  */
 
-public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ViewHolder> {
+public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ProgressViewHolder> {
 
     private List<Progress> mProgressList;
 
@@ -27,29 +27,19 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ViewHo
 
 
     @Override
-    public ProgressAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProgressViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //get the cardview row
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.progress_list_row, parent, false);
 
-        return new ViewHolder(view);
+        return new ProgressViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ProgressViewHolder holder, int position) {
 
-        Progress progress = mProgressList.get(position);
-        String progressString = progress.getProgress()+"/" +progress.getGoal()
-                +" " + progress.getGoalTitle();
-        holder.mTitle.setText(progress.getGoalTitle());
-        holder.mProgress.setText(progressString);
-        holder.mPercent.setText(progress.getPercent());
-
-        //set progress bar attributes
-        holder.mProgressBar.setMax(progress.getGoal());
-        holder.mProgressBar.setProgress(progress.getProgress());
-
+        holder.bind(position);
     }
 
     @Override
@@ -58,11 +48,11 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ViewHo
     }
 
     //retrieves the views that are in the cardview
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ProgressViewHolder extends RecyclerView.ViewHolder{
 
         TextView mTitle, mPercent, mProgress;
         ProgressBar mProgressBar;
-        public ViewHolder(View itemView) {
+        public ProgressViewHolder(View itemView) {
             super(itemView);
 
             mTitle = itemView.findViewById(R.id.progress_title);
@@ -70,6 +60,20 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ViewHo
             mProgress = itemView.findViewById(R.id.progress_text);
             mProgressBar = itemView.findViewById(R.id.progress_bar);
 
+        }
+
+        public void bind(int position){
+
+            Progress progress = mProgressList.get(position);
+            String progressString = progress.getProgress()+"/" +progress.getGoal()
+                    +" " + progress.getGoalTitle();
+            mTitle.setText(progress.getGoalTitle());
+            mProgress.setText(progressString);
+            mPercent.setText(progress.getPercent());
+
+            //set progress bar attributes
+            mProgressBar.setMax(progress.getGoal());
+            mProgressBar.setProgress(progress.getProgress());
         }
     }
 }
