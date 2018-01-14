@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.ProgressAdapter;
@@ -24,6 +25,9 @@ public class ProgressFragment extends Fragment {
     public static final String TAG = ProgressFragment.class.getSimpleName();
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView recyclerView;
+    private TextView noProgressTxt;
+    private boolean showList = false;
 
     public ProgressFragment() {
         // Required empty public constructor
@@ -36,7 +40,8 @@ public class ProgressFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_progress, container, false);
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.progress_recycler_view);
+        recyclerView = rootView.findViewById(R.id.progress_recycler_view);
+        noProgressTxt = rootView.findViewById(R.id.progress_empty_element);
 
 
         // use a linear layout manager
@@ -47,8 +52,20 @@ public class ProgressFragment extends Fragment {
         mAdapter = new ProgressAdapter(getProgressList());
         recyclerView.setAdapter(mAdapter);
 
+        toggleProgressList();
 
         return rootView;
+    }
+
+    private void toggleProgressList(){
+
+        if(showList){
+            recyclerView.setVisibility(View.VISIBLE);
+            noProgressTxt.setVisibility(View.GONE);
+        }else {
+            noProgressTxt.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
     }
 
     private List<Progress> getProgressList(){
