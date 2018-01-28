@@ -88,12 +88,10 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
             Lead lead = mLeads.get(position);
             leadName.setText(lead.getName());
             leadNumber.setText(lead.getNumber());
-            leadImage.setImageResource(R.drawable.ic_account_circle_black_48dp);
+            leadImage.setImageResource(R.drawable.ic_tm_indicator_48dp);
             leadType.setText(lead.getType());
             followUp.setText("1st Follow Up");
             itemView.setTag(lead);
         }
     }
-
-
 }
