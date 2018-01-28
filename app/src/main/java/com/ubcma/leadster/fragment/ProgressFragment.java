@@ -27,7 +27,7 @@ public class ProgressFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView recyclerView;
     private TextView noProgressTxt;
-    private boolean showList = false;
+    private boolean showList = true;
 
     public ProgressFragment() {
         // Required empty public constructor
