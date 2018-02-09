@@ -1,8 +1,11 @@
 package com.ubcma.leadster.fragment;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +21,8 @@ import com.ubcma.leadster.R;
 import com.ubcma.leadster.adapter.LeadRecyclerViewAdapter;
 import com.ubcma.leadster.dao.LeadDao;
 import com.ubcma.leadster.entity.Lead;
+import com.ubcma.leadster.viewmodel.LeadViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +37,7 @@ public class LeadListFragment extends Fragment {
     private LeadRecyclerViewAdapter mLeadAdapter;
     private LeadDao leadDao;
     private boolean showList = false;
-    
+    LeadViewModel mLeadViewModel;
 
 
     @Override
@@ -42,6 +45,7 @@ public class LeadListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Log.d(TAG, "onCreateView: entered onCreateView");
+        mLeadViewModel = ViewModelProviders.of(this).get(LeadViewModel.class);
         leadDao = LeadsterApp.get().getDB().leadDao();
 
         // Inflate the layout for this fragment
@@ -63,26 +67,21 @@ public class LeadListFragment extends Fragment {
     private void prepareLeadData() {
 
 
-        new AsyncTask<Void, Void, List<Lead>>() {
-
+        mLeadViewModel.loadLeads().observe(this, new Observer<List<Lead>>() {
             @Override
-            protected List<Lead> doInBackground(Void... params) {
-
-                List<Lead> leads = leadDao.getAllLeads();
-                return leads;
-            }
-
-            @Override
-            protected void onPostExecute(List<Lead> leads) {
-
+            public void onChanged(@Nullable List<Lead> leads) {
                 if(leads.size() > 0){
-                   showList = true;
-                    mLeadAdapter = new LeadRecyclerViewAdapter(leads);
-                    recyclerView.setAdapter(mLeadAdapter);
+                    showList = true;
+                    if(mLeadAdapter == null){
+                        mLeadAdapter = new LeadRecyclerViewAdapter(leads);
+                        recyclerView.setAdapter(mLeadAdapter);
+                    }else{
+                        mLeadAdapter.setLeadsList(leads);
+                    }
                 }
                 toggleLeadsList();
             }
-        }.execute();
+        });
     }
 
     private void toggleLeadsList(){

@@ -1,5 +1,6 @@
 package com.ubcma.leadster.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -20,7 +21,7 @@ import java.util.List;
 public interface LeadDao {
 
     @Query("SELECT * FROM lead")
-    List<Lead> getAllLeads();
+    LiveData<List<Lead>> getAllLeads();
 
     @Query("SELECT * FROM lead WHERE :id = id")
     Lead getLead(int id);
@@ -38,7 +39,8 @@ public interface LeadDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateLead(Lead lead);
 
+    //returns number of rows deleted
     @Delete
-    void deleteLead(Lead lead);
+    int deleteLead(Lead lead);
 
 }

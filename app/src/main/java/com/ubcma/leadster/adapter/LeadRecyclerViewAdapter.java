@@ -51,6 +51,10 @@ public class LeadRecyclerViewAdapter extends RecyclerView.Adapter<LeadRecyclerVi
         return mLeads;
     }
 
+    public void setLeadsList(List<Lead> leads){
+        mLeads = leads;
+    }
+
     public class LeadViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView leadName;
         public TextView leadNumber;

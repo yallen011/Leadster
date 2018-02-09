@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.ubcma.leadster.dao.LeadDao;
 import com.ubcma.leadster.database.LeadsterDB;
@@ -19,6 +20,8 @@ import java.util.List;
 
 import static com.ubcma.leadster.LeadTestUtil.getLead;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +31,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 public class LeadDaoTest {
+    private static final String TAG = LeadDaoTest.class.getSimpleName();
 
     private LeadDao mLeadDao;
     private LeadsterDB mDb;
@@ -78,5 +82,29 @@ public class LeadDaoTest {
         List<Lead> lead = mLeadDao.getAllLeads();
         //List<Lead> resultLeads = mLeadDao.getAllLeads();
         assertTrue(lead.size() == 1);
+    }
+
+    @Test
+    public void shouldDeleteLead() throws Exception{
+
+        int expectedRowsDeleted = 1;
+        Lead lead = getLead();
+        int id = mLeadDao.insertLead(lead).intValue();
+        lead.setId(id);
+
+        int rowsDeleted = mLeadDao.deleteLead(lead);
+        assertEquals(expectedRowsDeleted, rowsDeleted);
+    }
+
+    @Test
+    public void shouldNotDeleteLead() throws Exception {
+        int expectedRowsDeleted = 0;
+        Lead lead = getLead();
+        lead.setId(34343);
+        int rowsDeleted = mLeadDao.deleteLead(lead);
+        assertEquals(expectedRowsDeleted, rowsDeleted);
+
+
+
     }
 }

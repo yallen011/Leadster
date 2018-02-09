@@ -18,7 +18,7 @@ public class LeadTestUtil {
 
         Lead lead = new Lead();
         lead.setNumber("770-808-9955");
-        lead.setName("Name");
+        lead.setName("Grace");
         lead.setEmail("test@test.com");
         lead.setType("Team Member");
         lead.setFollowUpAttempt("1");
