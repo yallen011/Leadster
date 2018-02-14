@@ -74,17 +74,17 @@ public class LeadListFragment extends Fragment {
                 if(leads.size() > 0){
                     showList = true;
                     if(mLeadAdapter == null){
+                        //adapter will be null after you create a new lead
                         mLeadAdapter = new LeadRecyclerViewAdapter(leads, mLeadViewModel);
                         recyclerView.setAdapter(mLeadAdapter);
                     }else{
                         mLeadAdapter.setLeadsList(leads);
-                        //updateAdapter();
                     }
                 }
                 if((leads.size() == 0) && (mLeadAdapter != null)){
+                    //if the last lead as been deleted from the list the size will be 0
                     mLeadAdapter.setLeadsList(leads);
                     showList = false;
-                    //updateAdapter();
                 }
                 toggleLeadsList();
             }
@@ -100,10 +100,6 @@ public class LeadListFragment extends Fragment {
             noLeadsTxt.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
-    }
-
-    public void updateAdapter(){
-        mLeadAdapter.notifyDataSetChanged();
     }
 
     @Override
