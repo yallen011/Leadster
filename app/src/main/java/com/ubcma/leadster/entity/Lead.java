@@ -98,6 +98,38 @@ public class Lead{
         this.followUpAttempt = followUpAttempt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lead)) return false;
+
+        Lead lead = (Lead) o;
+
+        if (getId() != lead.getId()) return false;
+        if (getName() != null ? !getName().equals(lead.getName()) : lead.getName() != null)
+            return false;
+        if (getNumber() != null ? !getNumber().equals(lead.getNumber()) : lead.getNumber() != null)
+            return false;
+        if (getType() != null ? !getType().equals(lead.getType()) : lead.getType() != null)
+            return false;
+        if (getEmail() != null ? !getEmail().equals(lead.getEmail()) : lead.getEmail() != null)
+            return false;
+        if (getStatus() != lead.getStatus()) return false;
+        return getFollowUpAttempt() != null ? getFollowUpAttempt().equals(lead.getFollowUpAttempt()) : lead.getFollowUpAttempt() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getNumber() != null ? getNumber().hashCode() : 0);
+        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (getFollowUpAttempt() != null ? getFollowUpAttempt().hashCode() : 0);
+        return result;
+    }
+
     public enum Status {
         NEW("New"),
         WRONG_NUMBER("Wrong Number"),

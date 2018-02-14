@@ -70,14 +70,21 @@ public class LeadListFragment extends Fragment {
         mLeadViewModel.loadLeads().observe(this, new Observer<List<Lead>>() {
             @Override
             public void onChanged(@Nullable List<Lead> leads) {
+                Log.d(TAG, "onChanged: data was changed");
                 if(leads.size() > 0){
                     showList = true;
                     if(mLeadAdapter == null){
-                        mLeadAdapter = new LeadRecyclerViewAdapter(leads);
+                        mLeadAdapter = new LeadRecyclerViewAdapter(leads, mLeadViewModel);
                         recyclerView.setAdapter(mLeadAdapter);
                     }else{
                         mLeadAdapter.setLeadsList(leads);
+                        //updateAdapter();
                     }
+                }
+                if((leads.size() == 0) && (mLeadAdapter != null)){
+                    mLeadAdapter.setLeadsList(leads);
+                    showList = false;
+                    //updateAdapter();
                 }
                 toggleLeadsList();
             }
